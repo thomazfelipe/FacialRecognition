@@ -8,14 +8,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Resources.HomeScreen" />
+        <activity
+            android:name=".Resources.HomeScreen"
+            android:theme="@style/Theme.Transparent" />
+        <activity android:name=".Resources.Login"
+            android:theme="@style/Theme.Transparent"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

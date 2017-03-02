@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         handler.postDelayed((Runnable) this,4000);
     }
     @Override
-    public void run()
-    {
-            startActivity(new Intent(this, HomeScreen.class));
+    public void run(){
+        startActivity(new Intent(this, HomeScreen.class));
+        finish();
     }
 }

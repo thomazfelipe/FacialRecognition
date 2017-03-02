@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Facial Recognition</string>
+    <string name="create_password">Cadastrar</string>
+    <string name="login">Fazer login</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_password">Senha</string>
 </resources>
