@@ -25,14 +25,14 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if(view.equals(this.buttonCreatePassword)){
-
+            startActivity(new Intent(HomeScreen.this, Registration.class));
         }
         else{
             startActivity(new Intent(HomeScreen.this, Login.class));
         }
     }
     private void initialize() {
-        buttonCreatePassword = (Button) findViewById(R.id.buttonCreatePassword);
+        buttonCreatePassword = (Button) findViewById(R.id.buttonRegistrar);
         buttonLogin = (Button) findViewById(R.id.buttonDoLogin);
     }
 }

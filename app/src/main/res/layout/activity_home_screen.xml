@@ -28,7 +28,7 @@
             android:textColor="@android:color/white"
             android:textSize="17sp"/>
         <Button
-            android:id="@+id/buttonCreatePassword"
+            android:id="@+id/buttonRegistrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

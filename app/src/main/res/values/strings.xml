@@ -4,4 +4,6 @@
     <string name="login">Fazer login</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Senha</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="confirm_password">Confirmar senha</string>
 </resources>
