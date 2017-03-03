@@ -56,6 +56,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             if(ValidField.isValidEmail(this.editTextEmail)){
                 if(ValidField.isCorrectPassword(this.editTextPassword)){
                     android.support.design.widget.Snackbar.make(editTextPassword, "Login Realizado com sucesso", 3000).show();
+                    startActivity(new Intent(Login.this, IsConnected.class));
+                }else{
+                    android.support.design.widget.Snackbar.make(editTextPassword, "Falha na conexão, tente novamente!", 3000).show();
+                    startActivity(new Intent(Login.this, IsNotConnected.class));
                 }
             }
         }

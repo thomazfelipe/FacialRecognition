@@ -6,4 +6,6 @@
     <string name="hint_password">Senha</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="confirm_password">Confirmar senha</string>
+    <string name="you_connected">You Connected!</string>
+    <string name="you_don_t_connected">You don\'t Connected</string>
 </resources>

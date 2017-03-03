@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="bests.pi.facialrecognition">
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_icon"
@@ -12,6 +13,7 @@
             android:theme="@style/Theme.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -22,8 +24,12 @@
             android:name=".Resources.Login"
             android:theme="@style/Theme.Transparent"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".Resources.Registration"
+        <activity
+            android:name=".Resources.Registration"
             android:theme="@style/Theme.Transparent"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".Resources.IsConnected" />
+        <activity android:name=".Resources.IsNotConnected"></activity>
     </application>
+
 </manifest>
