@@ -42,17 +42,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 this.arrayEditText.get(i).setError("Este campo não pode estar em branco!");
             }
         }
-
         if(!empty){
             if(ValidField.isValidEmail(this.editTextEmail)){
                 if(ValidField.isEqualsPasswords(this.editTextPassword, this.editTextConfirmPassword)){
-                    android.support.design.widget.Snackbar.make(this.editTextPassword, "Cadastro Realizado com sucesso", 3000).show();
-                }else{
-                    this.editTextConfirmPassword.setError("As senhas não correspondem!");
+                    android.support.design.widget.Snackbar.make(editTextPassword, "Cadastro Realizado com sucesso", 3000).show();
                 }
-            }else{
-                this.editTextEmail.setError("Digite um e-mail válido!");
-
             }
         }
     }

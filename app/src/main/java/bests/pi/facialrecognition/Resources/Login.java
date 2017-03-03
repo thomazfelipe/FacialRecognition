@@ -1,6 +1,5 @@
 package bests.pi.facialrecognition.Resources;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -8,13 +7,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-
 import bests.pi.facialrecognition.*;
 import bests.pi.facialrecognition.Validations.ValidField;
 
@@ -60,14 +55,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         if(!empty){
             if(ValidField.isValidEmail(this.editTextEmail)){
                 if(ValidField.isCorrectPassword(this.editTextPassword)){
-                    android.support.design.widget.Snackbar.make(this.editTextPassword, "Login Realizado com sucesso", 3000).show();
-                }else{
-                    this.editTextPassword.setError("E-mail e/ou senha incorretos");
-                    this.layoutEmail.setErrorEnabled(true);
+                    android.support.design.widget.Snackbar.make(editTextPassword, "Login Realizado com sucesso", 3000).show();
                 }
-            }else{
-                this.editTextEmail.setError("Digite um e-mail válido!");
-                this.layoutEmail.setErrorEnabled(true);
             }
         }
     }
