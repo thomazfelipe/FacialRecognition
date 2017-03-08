@@ -2,7 +2,6 @@ package bests.pi.facialrecognition.Resources;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Parcelable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import bests.pi.facialrecognition.*;
 import bests.pi.facialrecognition.Domain.User;
-import bests.pi.facialrecognition.FinalVariables.ImutableStrings;
+import bests.pi.facialrecognition.FinalVariables.ImutableVariables;
 import bests.pi.facialrecognition.Network.Controller;
 import bests.pi.facialrecognition.Network.RequestLogin;
 import bests.pi.facialrecognition.Validations.ValidField;
@@ -44,7 +43,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_login);
 
         initialize();
-
+        android.support.design.widget.Snackbar.make(this.buttonLogin, "Cadastro Realizado com sucesso, Faça o Login para continuar", 3000).show();
         this.buttonLogin.setOnClickListener(this);
     }
     @Override
@@ -71,7 +70,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         if(!empty){
             if(ValidField.isValidEmail(this.editTextEmail)){
                 if(ValidField.isCorrectPassword(this.editTextPassword)){
-                    RequestLogin request = new RequestLogin(Request.Method.POST, ImutableStrings.URL_LOGIN + editTextEmail.getText().toString().trim() + "/" + editTextPassword.getText().toString().trim(),
+                    RequestLogin request = new RequestLogin(Request.Method.POST, ImutableVariables.URL_LOGIN + editTextEmail.getText().toString().trim() + "/" + editTextPassword.getText().toString().trim(),
                             new Response.Listener<JSONObject>() {
                                 final Gson gson = new Gson();
                                 @Override
@@ -79,7 +78,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                     try {
                                         User user = gson.fromJson( jsonObject.toString(), User.class );
 
-                                        SharedPreferences sharedPreferences = getSharedPreferences(ImutableStrings.PREF_NAME,MODE_PRIVATE);
+                                        SharedPreferences sharedPreferences = getSharedPreferences(ImutableVariables.PREF_NAME,MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("id", user.getId().toString());
                                         editor.putString("email",user.getEmail());
@@ -107,8 +106,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                         public byte[] getBody() {
                             StringBuilder sb = new StringBuilder();
                             sb.append("{");
-                            sb.append("\"").append(ImutableStrings.EMAIL).append("\":\"").append(editTextEmail.getText().toString().trim()).append("\",");
-                            sb.append("\"").append(ImutableStrings.PASSWORD).append("\":\"").append(editTextPassword.getText().toString().trim()).append("\"");
+                            sb.append("\"").append(ImutableVariables.EMAIL).append("\":\"").append(editTextEmail.getText().toString().trim()).append("\",");
+                            sb.append("\"").append(ImutableVariables.PASSWORD).append("\":\"").append(editTextPassword.getText().toString().trim()).append("\"");
                             sb.append("}");
 
                             return sb.toString().getBytes();
