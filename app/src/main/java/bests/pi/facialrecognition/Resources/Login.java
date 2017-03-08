@@ -71,9 +71,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         if(!empty){
             if(ValidField.isValidEmail(this.editTextEmail)){
                 if(ValidField.isCorrectPassword(this.editTextPassword)){
-                    final Gson gson = new Gson();
                     RequestLogin request = new RequestLogin(Request.Method.POST, ImutableStrings.URL_LOGIN + editTextEmail.getText().toString().trim() + "/" + editTextPassword.getText().toString().trim(),
                             new Response.Listener<JSONObject>() {
+                                final Gson gson = new Gson();
                                 @Override
                                 public void onResponse(JSONObject jsonObject) {
                                     try {
@@ -81,16 +81,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
                                         SharedPreferences sharedPreferences = getSharedPreferences(ImutableStrings.PREF_NAME,MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString("id",user.getId().toString());
+                                        editor.putString("id", user.getId().toString());
                                         editor.putString("email",user.getEmail());
                                         editor.putString("password",user.getPassword());
-                                        editor.commit();
-                                        Log.d("Response", gson.toString());
+                                        editor.apply();
 
-                                        Intent it = new Intent(Login.this, IsConnected.class);
-                                        it.putExtra("user", (Parcelable) user);
                                         android.support.design.widget.Snackbar.make(editTextEmail, "Login Realizado com sucesso", 3000).show();
-                                        startActivity(it);
+                                        startActivity(new Intent(Login.this, IsConnected.class));
                                         finish();
 
                                     }catch(Exception e)
@@ -102,6 +99,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Toast.makeText(Login.this, "Senha e/ou E-mail incorretos!", Toast.LENGTH_SHORT);
+                            editTextEmail.setError("");
+                            editTextPassword.setError("");
                         }
                     }) {
                         @Override

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/you_don_t_connected"
             android:textColor="#FFFFFF"
-            android:textSize="38sp"/>
+            android:textSize="37sp"/>
         <Button
             android:id="@+id/buttonHome"
             android:layout_width="match_parent"
