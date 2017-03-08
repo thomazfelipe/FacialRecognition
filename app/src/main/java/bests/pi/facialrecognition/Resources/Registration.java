@@ -1,18 +1,27 @@
 package bests.pi.facialrecognition.Resources;
 
 import android.content.Intent;
+import android.hardware.Camera;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
 import java.util.ArrayList;
 
 import bests.pi.facialrecognition.*;
+import bests.pi.facialrecognition.FinalVariables.ImutableStrings;
+import bests.pi.facialrecognition.Network.Controller;
 import bests.pi.facialrecognition.Validations.ValidField;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener{
@@ -21,6 +30,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     protected EditText editTextEmail, editTextPassword, editTextConfirmPassword;
     protected TextInputLayout layoutEmail, layoutPassword, layoutConfirmPassword;
     protected Button buttonRegistration;
+    protected Camera cam;
     protected ArrayList<EditText> arrayEditText = new ArrayList<>();
     protected ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
 
@@ -29,23 +39,57 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        //FUNCIONOU
+        //Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        //startActivity(intent);
+
         inicialize();
 
         this.buttonRegistration.setOnClickListener(this);
     }
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         boolean empty = false;
-        for(int i = 0; i < arrayEditText.size(); i++){
-            if(this.arrayEditText.get(i).getText().toString().isEmpty()){
+        for (int i = 0; i < arrayEditText.size(); i++) {
+            if (this.arrayEditText.get(i).getText().toString().isEmpty()) {
                 empty = true;
                 this.arrayEditText.get(i).setError("Este campo não pode estar em branco!");
             }
         }
-        if(!empty){
-            if(ValidField.isValidEmail(this.editTextEmail)){
-                if(ValidField.isEqualsPasswords(this.editTextPassword, this.editTextConfirmPassword)){
-                    android.support.design.widget.Snackbar.make(editTextPassword, "Cadastro Realizado com sucesso", 3000).show();
+        if (!empty) {
+            if (ValidField.isValidEmail(this.editTextEmail)) {
+                if (ValidField.isEqualsPasswords(this.editTextPassword, this.editTextConfirmPassword)) {
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, ImutableStrings.URL_REGISTRATION,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    android.support.design.widget.Snackbar.make(view, "Cadastro Realizado com sucesso", 3000).show();
+                                    startActivity(new Intent(Registration.this, Login.class));
+                                    finish();
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            android.support.design.widget.Snackbar.make(view, "Erro ao cadastrar, tente novamente", 3000).show();
+                            error.printStackTrace();
+                        }
+                    }) {
+                        @Override
+                        public byte[] getBody() {
+                            StringBuilder sb = new StringBuilder();
+                            sb.append("{");
+                            sb.append("\"").append(ImutableStrings.EMAIL).append("\":\"").append(editTextEmail.getText().toString().trim()).append("\",");
+                            sb.append("\"").append(ImutableStrings.PASSWORD).append("\":\"").append(editTextPassword.getText().toString().trim()).append("\"");
+                            sb.append("}");
+
+                            return sb.toString().getBytes();
+                        }
+                        @Override
+                        public String getBodyContentType() {
+                            return "application/json; charset=utf-8";
+                        }
+                    };
+                    Controller.getInstance(Registration.this).addToRequestQuee(stringRequest);
                 }
             }
         }
@@ -62,6 +106,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void inicialize() {
         this.editTextEmail = (EditText) findViewById(R.id.editTextEmailRegistration);
         this.editTextPassword = (EditText) findViewById(R.id.editTextPasswordRegistration);
@@ -82,4 +127,5 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         this.arrayLayout.add(this.layoutPassword);
         this.arrayLayout.add(this.layoutConfirmPassword);
     }
+
 }

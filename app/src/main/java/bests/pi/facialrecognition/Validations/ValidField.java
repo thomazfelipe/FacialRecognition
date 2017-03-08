@@ -1,8 +1,6 @@
 package bests.pi.facialrecognition.Validations;
 
-import android.content.Context;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.regex.Pattern;
 

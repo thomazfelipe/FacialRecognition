@@ -20,5 +20,14 @@
             android:text="@string/you_don_t_connected"
             android:textColor="#FFFFFF"
             android:textSize="38sp"/>
+        <Button
+            android:id="@+id/buttonHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/button_shape"
+            android:text="@string/home"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"/>
     </LinearLayout>
 </LinearLayout>

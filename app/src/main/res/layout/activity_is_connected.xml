@@ -20,5 +20,14 @@
             android:text="@string/you_connected"
             android:textColor="#FFFFFF"
             android:textSize="40sp"/>
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/button_shape"
+            android:text="@string/log_out"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"/>
     </LinearLayout>
 </LinearLayout>

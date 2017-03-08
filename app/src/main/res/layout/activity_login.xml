@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    app:theme="@style/AppTheme"
+    android:theme="@style/AppTheme"
     tools:context="bests.pi.facialrecognition.Resources.Login">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBarLogin"
@@ -39,13 +39,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                app:theme="@style/EditText">
+                android:theme="@style/EditText">
                 <EditText
                     android:id="@+id/editTextEmail"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:hint="@string/hint_email"
-                    app:theme="@style/EditText"
+                    android:theme="@style/EditText"
                     android:textColor="#FFFFFF"
                     android:inputType="textEmailAddress" />
             </android.support.design.widget.TextInputLayout>
@@ -53,13 +53,13 @@
                 android:id="@+id/layoutPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:theme="@style/EditText">
+                android:theme="@style/EditText">
                 <EditText
                     android:id="@+id/editTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_password"
-                    app:theme="@style/EditText"
+                    android:theme="@style/EditText"
                     android:textColor="#FFFFFF"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>

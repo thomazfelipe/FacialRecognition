@@ -15,7 +15,7 @@
         android:minHeight="?attr/actionBarSize"
         android:background="@color/colorAccent"
         android:elevation="3dp"
-        app:theme="@style/ToolBarStyle"
+        android:theme="@style/ToolBarStyle"
         tools:ignore="UnusedAttribute" />
     <LinearLayout
         android:id="@+id/linearLayoutRegistration"
@@ -34,13 +34,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            app:theme="@style/EditText">
+            android:theme="@style/EditText">
             <EditText
                 android:id="@+id/editTextEmailRegistration"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:hint="@string/hint_email"
-                app:theme="@style/EditText"
+                android:theme="@style/EditText"
                 android:textColor="#FFFFFF"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
@@ -48,13 +48,13 @@
             android:id="@+id/layoutPasswordRegistration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:theme="@style/EditText">
+            android:theme="@style/EditText">
             <EditText
                 android:id="@+id/editTextPasswordRegistration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_password"
-                app:theme="@style/EditText"
+                android:theme="@style/EditText"
                 android:textColor="#FFFFFF"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
@@ -62,13 +62,13 @@
             android:id="@+id/layoutConfirmPasswordRegistration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:theme="@style/EditText">
+            android:theme="@style/EditText">
             <EditText
                 android:id="@+id/editTextConfirmPasswordRegistration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/confirm_password"
-                app:theme="@style/EditText"
+                android:theme="@style/EditText"
                 android:textColor="#FFFFFF"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
