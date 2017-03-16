@@ -43,7 +43,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_login);
 
         initialize();
-        android.support.design.widget.Snackbar.make(this.buttonLogin, "Cadastro Realizado com sucesso, Faça o Login para continuar", 3000).show();
         this.buttonLogin.setOnClickListener(this);
     }
     @Override
