@@ -58,7 +58,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                 @Override
                                 public void onResponse(String response) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
-                                    builder.setTitle("Cadastro realizado com sucesso!");
+                                    builder.setTitle("Dados gravados com sucesso!");
                                     builder.setMessage(" Agora precisamos de algumas fotos sua, tudo bem?");
                                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
                                     {
@@ -74,7 +74,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            android.support.design.widget.Snackbar.make(view, "Erro ao cadastrar, tente novamente", 3000).show();
+                            android.support.design.widget.Snackbar.make(view, "Erro ao cadastrar, verifique sua conexão", 3000).show();
                             error.printStackTrace();
                         }
                     }) {
