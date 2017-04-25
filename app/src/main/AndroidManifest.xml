@@ -21,7 +21,8 @@
         <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="face"/>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.Transparent">
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,21 +31,27 @@
         </activity>
         <activity
             android:name=".Resources.HomeScreen"
-            android:theme="@style/Theme.Transparent" />
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Resources.Login"
             android:theme="@style/Theme.Transparent"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Resources.Registration"
             android:theme="@style/Theme.Transparent"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Resources.IsConnected"
-            android:theme="@style/Theme.Transparent"/>
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Resources.IsNotConnected"
-            android:theme="@style/Theme.Transparent"/>
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Resources.TakePictures"
-            android:theme="@style/Theme.Transparent"/>
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

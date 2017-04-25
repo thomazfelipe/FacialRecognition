@@ -9,12 +9,14 @@ public class User {
     private Integer id;
     private String email;
     private String password;
+    private Byte[] image;
 
     public User(){}
-    public User(Integer id, String email, String password){
+    public User(Integer id, String email, String password, Byte[] image){
         this.id = id;
         this.email = email;
         this.password = password;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -34,5 +36,11 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public Byte[] getImage() {
+        return image;
+    }
+    public void setImage(Byte[] image) {
+        this.image = image;
     }
 }
