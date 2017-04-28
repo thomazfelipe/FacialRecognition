@@ -4,12 +4,14 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -97,9 +99,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                     sb.append("{");
                                     sb.append("\"").append(ImutableVariables.EMAIL).append("\":\"").append(editTextEmail.getText().toString().trim()).append("\",");
                                     sb.append("\"").append(ImutableVariables.PASSWORD).append("\":\"").append(editTextPassword.getText().toString().trim()).append("\"");
-                                    sb.append("\"").append(ImutableVariables.IMAGE).append("\":\"").append(allImages[0].toString().trim()).append("\"");
+                                    //sb.append("\"").append(ImutableVariables.IMAGE).append("\":\"").append(allImages[0].toString().trim()).append("\"");
                                     sb.append("}");
-
                                     return sb.toString().getBytes();
                                 }
 
@@ -120,11 +121,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         else{
             cont = 0;
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
-                //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,}, 101);
-                if (ActivityCompat.shouldShowRequestPermissionRationale(Registration.this,
-                        Manifest.permission.CAMERA)) {
+                 if (verifyPermission()){
                     while (cont < 4) {
                         dispatchTakePictureIntent();
+                        ++cont;
                     }
                 }
             } else {
@@ -134,6 +134,16 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
+    private boolean verifyPermission() {
+        int permissionCheck = ContextCompat.checkSelfPermission(Registration.this, Manifest.permission.CAMERA);
+        if(permissionCheck == PackageManager.PERMISSION_GRANTED){
+            return true;
+        }
+        ActivityCompat.requestPermissions(Registration.this, new String[]{Manifest.permission.CAMERA}, 101);
+        return verifyPermission();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
@@ -146,7 +156,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
         return super.onOptionsItemSelected(item);
     }
-    /*@Override
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ImutableVariables.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
@@ -157,22 +168,26 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             allImages[cont] = new String(byteArrayOutputStream.toByteArray());
             cont++;
         }
-    }*/
+    }
+    /*
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case RESULT_OK: {
+            case RESULT_OK:
                 cont++;
-            }
+                break;
         }
     }
+    */
+
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, ImutableVariables.REQUEST_IMAGE_CAPTURE);
         }
     }
+
     private void inicialize() {
         this.editTextEmail = (EditText) findViewById(R.id.editTextEmailRegistration);
         this.editTextPassword = (EditText) findViewById(R.id.editTextPasswordRegistration);
