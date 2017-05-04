@@ -27,10 +27,8 @@ import bests.pi.facialrecognition.R;
 
 public class IsConnected extends AppCompatActivity implements View.OnClickListener{
 
-    protected Button buttonLogout;
-    protected ImageView imageConnected;
-    protected String picture = null;
-    protected Bitmap image = null;
+    private Button buttonLogout;
+    private ImageView imageConnected;
     private Integer userId = null;
 
     @Override

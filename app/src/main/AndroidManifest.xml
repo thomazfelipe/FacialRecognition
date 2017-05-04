@@ -49,9 +49,6 @@
         <activity android:name=".Resources.IsNotConnected"
             android:theme="@style/Theme.Transparent"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Resources.TakePictures"
-            android:theme="@style/Theme.Transparent"
-            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

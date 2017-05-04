@@ -31,12 +31,12 @@ import bests.pi.facialrecognition.Validations.ValidField;
 
 public class Login extends AppCompatActivity implements View.OnClickListener{
 
-    protected EditText editTextEmail, editTextPassword;
-    protected TextInputLayout layoutEmail, layoutPassword;
-    protected Button buttonLogin;
-    protected Toolbar toolbarLogin;
-    protected ArrayList<EditText> arrayEditText = new ArrayList<>();
-    protected ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
+    private EditText editTextEmail, editTextPassword;
+    private TextInputLayout layoutEmail, layoutPassword;
+    private Button buttonLogin;
+    private Toolbar toolbarLogin;
+    private ArrayList<EditText> arrayEditText = new ArrayList<>();
+    private ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +89,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                         editor.apply();
 
                                         Toast.makeText(Login.this, "Log in with success", Toast.LENGTH_SHORT);
-                                        //startActivity(new Intent(Login.this, IsConnected.class));
                                         Intent isConnected = new Intent(Login.this, IsConnected.class);
                                         isConnected.putExtra("userId", user.getId());
                                         startActivity(isConnected);
@@ -103,7 +102,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            android.support.design.widget.Snackbar.make(editTextEmail, "Incorrect Email or Password", 3000).show();
+                            android.support.design.widget.Snackbar.make(editTextEmail,
+                                    "Incorrect Email or Password", 3000).show();
                             editTextEmail.setError("");
                             editTextPassword.setError("");
                         }
@@ -112,8 +112,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                         public byte[] getBody() {
                             StringBuilder sb = new StringBuilder();
                             sb.append("{");
-                            sb.append("\"").append(ImutableVariables.EMAIL).append("\":\"").append(editTextEmail.getText().toString().trim()).append("\",");
-                            sb.append("\"").append(ImutableVariables.PASSWORD).append("\":\"").append(editTextPassword.getText().toString().trim()).append("\"");
+                            sb.append("\"").append(ImutableVariables.EMAIL).append("\":\"")
+                                    .append(editTextEmail.getText().toString().trim()).append("\",");
+                            sb.append("\"").append(ImutableVariables.PASSWORD).append("\":\"")
+                                    .append(editTextPassword.getText().toString().trim()).append("\"");
                             sb.append("}");
 
                             return sb.toString().getBytes();

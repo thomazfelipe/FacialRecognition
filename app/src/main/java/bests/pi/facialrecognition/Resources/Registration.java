@@ -39,15 +39,15 @@ import bests.pi.facialrecognition.Validations.ValidField;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener{
 
-    protected Toolbar toolbarRegistration;
-    protected EditText editTextEmail, editTextPassword, editTextConfirmPassword;
-    protected TextInputLayout layoutEmail, layoutPassword, layoutConfirmPassword;
-    protected Button buttonRegistration;
-    protected Button buttonCamera;
-    protected ArrayList<EditText> arrayEditText = new ArrayList<>();
-    protected ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
-    protected int cont;
-    protected String [] allImages = new String[4];
+    private Toolbar toolbarRegistration;
+    private EditText editTextEmail, editTextPassword, editTextConfirmPassword;
+    private TextInputLayout layoutEmail, layoutPassword, layoutConfirmPassword;
+    private Button buttonRegistration;
+    private Button buttonCamera;
+    private ArrayList<EditText> arrayEditText = new ArrayList<>();
+    private ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
+    private int cont;
+    private String [] allImages = new String[4];
     ImageView imageView;
 
     @Override
