@@ -1,5 +1,6 @@
 package bests.pi.facialrecognition.Resources;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
@@ -72,6 +73,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     RequestLogin request = new RequestLogin(Request.Method.POST, ImutableVariables.URL_LOGIN + editTextEmail.getText().toString().trim() + "/" + editTextPassword.getText().toString().trim(),
                             new Response.Listener<JSONObject>() {
                                 final Gson gson = new Gson();
+                                @SuppressLint("ShowToast")
                                 @Override
                                 public void onResponse(JSONObject jsonObject) {
                                     try {
@@ -84,7 +86,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                         editor.putString("password",user.getPassword());
                                         editor.apply();
 
-                                        android.support.design.widget.Snackbar.make(editTextEmail, "Login Realizado com sucesso", 3000).show();
+                                        Toast.makeText(Login.this, "Log in with success", Toast.LENGTH_SHORT);
                                         startActivity(new Intent(Login.this, IsConnected.class));
                                         finish();
 
@@ -96,7 +98,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(Login.this, "Senha e/ou E-mail incorretos!", Toast.LENGTH_SHORT);
+                            android.support.design.widget.Snackbar.make(editTextEmail, "Incorrect Email or Password", 3000).show();
                             editTextEmail.setError("");
                             editTextPassword.setError("");
                         }

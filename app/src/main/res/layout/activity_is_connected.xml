@@ -17,7 +17,9 @@
         <ImageView
             android:id="@+id/imageConnected"
             android:layout_width="150dp"
-            android:layout_height="150dp" />
+            android:layout_height="150dp"
+            android:contentDescription=""
+            tools:ignore="ContentDescription" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

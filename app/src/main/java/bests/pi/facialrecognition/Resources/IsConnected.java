@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -38,10 +39,7 @@ public class IsConnected extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_is_connected);
 
         initialize();
-
-        //this.imageConnected.setImageDrawable(new BitmapDrawable(getApplicationContext().getResources(), getPicture()));
-        //imageConnected.setBackground(new BitmapDrawable(getApplicationContext().getResources(), getPicture()));
-        this.imageConnected.setImageBitmap(getPicture());
+        setPicture();
         this.buttonLogout.setOnClickListener(this);
     }
     @Override
@@ -52,44 +50,28 @@ public class IsConnected extends AppCompatActivity implements View.OnClickListen
         startActivity(new Intent(IsConnected.this, HomeScreen.class));
         finish();
     }
-    private Bitmap getPicture() {
+    private void setPicture() {
         RequestLogin request = new RequestLogin(Request.Method.GET, ImutableVariables.URL_GETIMAGE + 1,
                 new Response.Listener<JSONObject>() {
                     final Gson gson = new Gson();
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        try {
-                            User user = gson.fromJson( jsonObject.toString(), User.class );
-                            image = convertToImage(user);
-
-                        }catch(Exception e)
-                        {
-
-                        }
+                        User user = gson.fromJson( jsonObject.toString(), User.class );
+                        imageConnected.setImageDrawable(convertToDrawable(user));
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {}
         }){ };
         Controller.getInstance(IsConnected.this).addToRequestQuee(request);
-
-        return image;
     }
-    private Bitmap convertToImage(User user){
+    private Drawable convertToDrawable(User user){
         byte[] bytes = new byte[user.getImage().length];
-        Bitmap im = null;
         for(int i = 0; i < user.getImage().length; i++) {
             bytes[i] = user.getImage()[i];
         }
-        picture = Base64.encodeToString(bytes, Base64.DEFAULT);
-        try{
-            byte[] encodeByte = picture.getBytes();
-            im = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-        } catch(Exception e){
-            Log.i("Log", "Conversao: "+e.getMessage());
-        }
 
-        return im;
+        return new BitmapDrawable(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
     }
     public void initialize(){
         this.buttonLogout = (Button) findViewById(R.id.buttonLogout);

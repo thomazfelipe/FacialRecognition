@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
@@ -20,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -44,6 +48,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     protected ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
     protected int cont;
     protected String [] allImages = new String[4];
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +56,17 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_registration);
 
         inicialize();
-
+        this.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] bitmapdata = stream.toByteArray();
+                Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length));
+                imageView.setImageDrawable(image);
+            }
+        });
         this.buttonRegistration.setOnClickListener(this);
         this.buttonCamera.setOnClickListener(this);
     }
@@ -202,6 +217,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         this.buttonRegistration = (Button) findViewById(R.id.buttonRegistration);
         this.toolbarRegistration = (Toolbar) findViewById(R.id.toolBarRegistration);
         this.buttonCamera = (Button) findViewById(R.id.buttonCamera);
+        this.imageView = (ImageView) findViewById(R.id.imageRegistration);
         this.cont = 0;
         setSupportActionBar(this.toolbarRegistration);
         if(getSupportActionBar() != null){
