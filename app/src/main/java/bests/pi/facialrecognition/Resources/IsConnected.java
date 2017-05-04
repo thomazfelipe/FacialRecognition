@@ -8,11 +8,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -32,16 +31,20 @@ public class IsConnected extends AppCompatActivity implements View.OnClickListen
     protected ImageView imageConnected;
     protected String picture = null;
     protected Bitmap image = null;
+    private Integer userId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userId = getIntent().getIntExtra("userId", -1);
         setContentView(R.layout.activity_is_connected);
 
         initialize();
+
         setPicture();
         this.buttonLogout.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View view) {
         SharedPreferences sp = getSharedPreferences(ImutableVariables.PREF_NAME,MODE_PRIVATE);
@@ -51,7 +54,7 @@ public class IsConnected extends AppCompatActivity implements View.OnClickListen
         finish();
     }
     private void setPicture() {
-        RequestLogin request = new RequestLogin(Request.Method.GET, ImutableVariables.URL_GETIMAGE + 1,
+        RequestLogin request = new RequestLogin(Request.Method.GET, ImutableVariables.URL_GETIMAGE + userId,
                 new Response.Listener<JSONObject>() {
                     final Gson gson = new Gson();
                     @Override

@@ -37,7 +37,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     protected Toolbar toolbarLogin;
     protected ArrayList<EditText> arrayEditText = new ArrayList<>();
     protected ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +69,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         if(!empty){
             if(ValidField.isValidEmail(this.editTextEmail)){
                 if(ValidField.isCorrectPassword(this.editTextPassword)){
-                    RequestLogin request = new RequestLogin(Request.Method.POST, ImutableVariables.URL_LOGIN + editTextEmail.getText().toString().trim() + "/" + editTextPassword.getText().toString().trim(),
+                    RequestLogin request = new RequestLogin(Request.Method.POST,
+                            ImutableVariables.URL_LOGIN
+                                    + editTextEmail.getText().toString().trim()
+                                    + "/" + editTextPassword.getText().toString().trim(),
                             new Response.Listener<JSONObject>() {
                                 final Gson gson = new Gson();
                                 @SuppressLint("ShowToast")
@@ -87,12 +89,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                         editor.apply();
 
                                         Toast.makeText(Login.this, "Log in with success", Toast.LENGTH_SHORT);
-                                        startActivity(new Intent(Login.this, IsConnected.class));
+                                        //startActivity(new Intent(Login.this, IsConnected.class));
+                                        Intent isConnected = new Intent(Login.this, IsConnected.class);
+                                        isConnected.putExtra("userId", user.getId());
+                                        startActivity(isConnected);
                                         finish();
 
                                     }catch(Exception e)
                                     {
-                                        Log.i("Log", "JsonException: "+e.getMessage());
+                                        Log.i("Log", "JsonException: " + e.getMessage());
                                     }
                                 }
                             }, new Response.ErrorListener() {
