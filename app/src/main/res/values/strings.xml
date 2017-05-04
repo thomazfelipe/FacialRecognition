@@ -4,7 +4,7 @@
     <string name="login">Fazer login</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Senha</string>
-    <string name="cadastrar">Cadastrar</string>
+    <string name="sign_in">Sign in</string>
     <string name="confirm_password">Confirmar senha</string>
     <string name="you_connected">You\'re Connected!</string>
     <string name="you_don_t_connected">You aren\'t Connected</string>

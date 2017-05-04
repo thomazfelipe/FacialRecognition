@@ -75,21 +75,22 @@
                     android:textColor="#FFFFFF"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatingButtonCamera"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom|end"
-                app:backgroundTint="@color/colorPrimaryLight"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_camera" />
+            <Button
+                android:id="@+id/buttonCamera"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="right"
+                android:background="@drawable/ic_camera"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@android:color/darker_gray"/>
             <Button
                 android:id="@+id/buttonRegistration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/button_shape"
-                android:text="@string/next_step"
+                android:text="@string/sign_in"
                 android:textColor="@android:color/white"
                 android:textSize="17sp"/>
         </LinearLayout>
