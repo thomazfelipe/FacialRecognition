@@ -48,7 +48,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
     private int cont;
     private String [] allImages = new String[4];
-    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +55,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_registration);
 
         inicialize();
-        this.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] bitmapdata = stream.toByteArray();
-                Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length));
-                imageView.setImageDrawable(image);
-            }
-        });
         this.buttonRegistration.setOnClickListener(this);
         this.buttonCamera.setOnClickListener(this);
     }
@@ -217,7 +205,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         this.buttonRegistration = (Button) findViewById(R.id.buttonRegistration);
         this.toolbarRegistration = (Toolbar) findViewById(R.id.toolBarRegistration);
         this.buttonCamera = (Button) findViewById(R.id.buttonCamera);
-        this.imageView = (ImageView) findViewById(R.id.imageRegistration);
         this.cont = 0;
         setSupportActionBar(this.toolbarRegistration);
         if(getSupportActionBar() != null){
