@@ -43,7 +43,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private ArrayList<EditText> arrayEditText = new ArrayList<>();
     private ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
     private int cont;
-    private String [] allImages = new String[4];
+    private String image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +103,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                     sb.append("\"").append(ImutableVariables.PASSWORD).append("\":\"")
                                             .append(editTextPassword.getText().toString().trim()).append("\",");
                                     sb.append("\"").append(ImutableVariables.IMAGE).append("\":\"")
-                                            .append(allImages[0].trim()).append("\"");
+                                            .append(image.trim()).append("\"");
                                     sb.append("}");
 
                                     return sb.toString().getBytes();
@@ -132,16 +132,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             cont = 0;
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
                  if (verifyPermission()){
-                    //while (cont < 4) {
-                        dispatchTakePictureIntent();
-                        //++cont;
-                    //}
+                    dispatchTakePictureIntent();
                 }
             }
             else {
-                //while (cont < 4) {
                 dispatchTakePictureIntent();
-                //}
                 buttonCamera.setEnabled(false);
 
             }
@@ -175,7 +170,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             assert imageBitmap != null;
             imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-            allImages[cont] = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+            image = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
             cont++;
         }
     }
