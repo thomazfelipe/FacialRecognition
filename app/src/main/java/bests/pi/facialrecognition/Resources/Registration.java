@@ -165,25 +165,32 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
 
-            assert imageBitmap != null;
-            Frame frame = new Frame.Builder().setBitmap(imageBitmap).build();
-            SparseArray<Face> numberFaces = detector.detect(frame);
-            detector.release();
-            if(numberFaces.size() < 1) {
-                android.support.design.widget.Snackbar.make(buttonCamera,
-                        "Desculpe, mas não detectamos nenhum rosto na foto retirada. Tire novamente",
-                         3000).show();
-            }
-            else if(numberFaces.size() > 1){
-                android.support.design.widget.Snackbar.make(buttonCamera,
-                        "Desculpe, mas não detectamos mais de um rosto na foto retirada. Tire novamente",
-                        3000).show();
-            }
-            else{
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-                image = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
-                cont++;
+            detector = new FaceDetector.Builder( getApplicationContext() )
+                    .setTrackingEnabled(false)
+                    .setLandmarkType(FaceDetector.ALL_LANDMARKS)
+                    .setMode(FaceDetector.FAST_MODE)
+                    .build();
+
+            if (!detector.isOperational()) {
+
+                assert imageBitmap != null;
+                Frame frame = new Frame.Builder().setBitmap(imageBitmap).build();
+                SparseArray<Face> numberFaces = detector.detect(frame);
+                detector.release();
+                if (numberFaces.size() < 1) {
+                    android.support.design.widget.Snackbar.make(buttonCamera,
+                            "Desculpe, mas não detectamos nenhum rosto na foto retirada. Tire novamente",
+                            3000).show();
+                } else if (numberFaces.size() > 1) {
+                    android.support.design.widget.Snackbar.make(buttonCamera,
+                            "Desculpe, mas não detectamos mais de um rosto na foto retirada. Tire novamente",
+                            3000).show();
+                } else {
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    image = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+                    cont++;
+                }
             }
         }
     }
