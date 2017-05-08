@@ -222,6 +222,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         this.layoutConfirmPassword = (TextInputLayout) findViewById(R.id.layoutConfirmPasswordRegistration);
         this.buttonRegistration = (Button) findViewById(R.id.buttonRegistration);
         this.toolbarRegistration = (Toolbar) findViewById(R.id.toolBarRegistration);
+        this.toolbarRegistration.setTitle("Sign up");
         this.buttonCamera = (Button) findViewById(R.id.buttonCamera);
         this.cont = 0;
         setSupportActionBar(this.toolbarRegistration);
