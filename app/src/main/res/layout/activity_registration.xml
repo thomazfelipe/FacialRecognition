@@ -39,7 +39,7 @@
                 android:id="@+id/layoutEmailRegistration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:theme="@style/EditText">
                 <EditText
                     android:id="@+id/editTextEmailRegistration"
@@ -80,8 +80,8 @@
             </android.support.design.widget.TextInputLayout>
             <Button
                 android:id="@+id/buttonCamera"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="right"
                 android:background="@drawable/ic_camera"
                 android:layout_marginBottom="15dp"

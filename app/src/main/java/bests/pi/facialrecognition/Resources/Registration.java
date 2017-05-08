@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.face.Face;
+import com.google.android.gms.vision.face.FaceDetector;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -40,6 +44,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private TextInputLayout layoutEmail, layoutPassword, layoutConfirmPassword;
     private Button buttonRegistration;
     private Button buttonCamera;
+    private FaceDetector detector;
     private ArrayList<EditText> arrayEditText = new ArrayList<>();
     private ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
     private int cont;
@@ -57,14 +62,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(final View view) {
         if(view == buttonRegistration) {
-            boolean empty = false;
-            for (int i = 0; i < arrayEditText.size(); i++) {
-                if (this.arrayEditText.get(i).getText().toString().isEmpty()) {
-                    empty = true;
-                    this.arrayEditText.get(i).setError("Este campo não pode estar em branco!");
-                }
-            }
-            if (!empty) {
+            if (!isEmpty()) {
                 if (ValidField.isValidEmail(this.editTextEmail)) {
                     if (ValidField.isEqualsPasswords(this.editTextPassword,
                             this.editTextConfirmPassword)) {
@@ -121,7 +119,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                         }
                         else{
                             android.support.design.widget.Snackbar.make(view,
-                                    "Desculpe, precisamos de suas fotos! Tire-as e tente novamente", 3000)
+                                    "Desculpe, precisamos de uma foto!", 3000)
                                     .show();
                         }
                     }
@@ -137,8 +135,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             }
             else {
                 dispatchTakePictureIntent();
-                buttonCamera.setEnabled(false);
-
             }
         }
     }
@@ -165,13 +161,30 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ImutableVariables.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            cont = 0;
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
             assert imageBitmap != null;
-            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-            image = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
-            cont++;
+            Frame frame = new Frame.Builder().setBitmap(imageBitmap).build();
+            SparseArray<Face> numberFaces = detector.detect(frame);
+            detector.release();
+            if(numberFaces.size() < 1) {
+                android.support.design.widget.Snackbar.make(buttonCamera,
+                        "Desculpe, mas não detectamos nenhum rosto na foto retirada. Tire novamente",
+                         3000).show();
+            }
+            else if(numberFaces.size() > 1){
+                android.support.design.widget.Snackbar.make(buttonCamera,
+                        "Desculpe, mas não detectamos mais de um rosto na foto retirada. Tire novamente",
+                        3000).show();
+            }
+            else{
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                image = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+                cont++;
+            }
         }
     }
     @Override
@@ -182,6 +195,17 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 cont++;
             }
         }
+    }
+    private boolean isEmpty(){
+        boolean empty = false;
+        for (int i = 0; i < arrayEditText.size(); i++) {
+            if (this.arrayEditText.get(i).getText().toString().isEmpty()) {
+                empty = true;
+                this.arrayEditText.get(i).setError("Este campo não pode estar em branco!");
+            }
+        }
+
+        return empty;
     }
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
