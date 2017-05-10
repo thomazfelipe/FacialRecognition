@@ -171,7 +171,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     .setMode(FaceDetector.FAST_MODE)
                     .build();
 
-            if (!detector.isOperational()) {
+            if (detector.isOperational()) {
                 assert imageBitmap != null;
                 Frame frame = new Frame.Builder().setBitmap(imageBitmap).build();
                 SparseArray<Face> numberFaces = detector.detect(frame);
