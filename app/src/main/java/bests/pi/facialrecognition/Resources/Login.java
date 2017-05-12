@@ -15,8 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
@@ -61,12 +64,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         boolean empty = false;
         for(int i = 0; i < arrayEditText.size(); i++){
             if(this.arrayEditText.get(i).getText().toString().isEmpty()){
                 empty = true;
-                this.arrayEditText.get(i).setError("Este campo não pode estar em branco!");
+                this.arrayEditText.get(i).setError("This field couldn't be empty");
             }
         }
 
@@ -112,8 +115,27 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             progressDialog.dismiss();
-                            android.support.design.widget.Snackbar.make(editTextEmail,
-                                    "Incorrect Email or Password", 3000).show();
+
+                            if (error instanceof TimeoutError){
+                                android.support.design.widget.Snackbar.make(view,
+                                        "Failed to login, Timeout", 3000).show();
+                            }
+
+                            else if (error instanceof NetworkError){
+                                android.support.design.widget.Snackbar.make(view,
+                                        "Failed to login, Check your connection", 3000).show();
+                            }
+
+                            else if (error instanceof AuthFailureError){
+                                android.support.design.widget.Snackbar.make(view,
+                                        "Failed to login, Authentication error", 3000).show();
+                            }
+
+                            else {
+                                android.support.design.widget.Snackbar.make(view,
+                                        "Failed to login, Incorrect E-mail or Password", 3000).show();
+                            }
+
                             editTextEmail.setError("");
                             editTextPassword.setError("");
                         }

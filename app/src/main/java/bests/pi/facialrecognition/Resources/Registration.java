@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,15 +24,21 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import bests.pi.facialrecognition.*;
@@ -69,15 +76,15 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 if (ValidField.isValidEmail(this.editTextEmail)) {
                     if (ValidField.isEqualsPasswords(this.editTextPassword, this.editTextConfirmPassword)) {
                         if(cont > 0) {
-                            progressDialog = ProgressDialog.show(this, "Signin FacialRecognition", "Loading...");
+                            progressDialog = ProgressDialog.show(this, "Recording", "Loading...");
                             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                                     ImutableVariables.URL_REGISTRATION,
                                     new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
                                             AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
-                                            builder.setTitle("Dados gravados com sucesso!");
-                                            builder.setMessage(" Faça o login para continuar!");
+                                            builder.setTitle("Data saved successfully!");
+                                            builder.setMessage("Login to continue!");
                                             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -92,9 +99,24 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
                                             progressDialog.dismiss();
-                                            android.support.design.widget.Snackbar.make(view,
-                                                    "Erro ao cadastrar, verifique sua conexão", 3000).show();
+
+                                            if (error instanceof TimeoutError){
+                                                android.support.design.widget.Snackbar.make(view,
+                                                        "Failed to register, Timeout", 3000).show();
+                                            }
+
+                                            else if (error instanceof NetworkError){
+                                                android.support.design.widget.Snackbar.make(view,
+                                                        "Failed to register, Check your connection", 3000).show();
+                                            }
+
+                                            else {
+                                                android.support.design.widget.Snackbar.make(view,
+                                                        "Fialed to register, E-mail already used in the database", 3000).show();
+                                            }
+
                                             error.printStackTrace();
+
                                         }
                                     }) {
                                         @Override
@@ -132,7 +154,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                         }
                         else{
                             android.support.design.widget.Snackbar.make(view,
-                                    "Desculpe, precisamos de uma foto!", 3000)
+                                    "Sorry, We need one picture!", 3000)
                                     .show();
                         }
                     }
@@ -151,6 +173,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
+
 
     private boolean verifyPermission() {
         if(ContextCompat.checkSelfPermission(Registration.this, Manifest.permission.CAMERA) ==
@@ -191,11 +215,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 detector.release();
                 if (numberFaces.size() < 1) {
                     android.support.design.widget.Snackbar.make(buttonCamera,
-                            "Desculpe, mas não detectamos nenhum rosto na foto retirada. Tire novamente",
+                            "Sorry, We didn't detect any faces in the photo taken. Take it again",
                             3000).show();
                 } else if (numberFaces.size() > 1) {
                     android.support.design.widget.Snackbar.make(buttonCamera,
-                            "Desculpe, mas não detectamos mais de um rosto na foto retirada. Tire novamente",
+                            "Sorry, We dectect more than one face in the photo taken. Take it again",
                             3000).show();
                 } else {
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -221,7 +245,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i < arrayEditText.size(); i++) {
             if (this.arrayEditText.get(i).getText().toString().isEmpty()) {
                 empty = true;
-                this.arrayEditText.get(i).setError("Este campo não pode estar em branco!");
+                this.arrayEditText.get(i).setError("This field couldn't be empty!");
             }
         }
         return empty;
