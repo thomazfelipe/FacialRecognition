@@ -1,6 +1,7 @@
 package bests.pi.facialrecognition.Resources;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
@@ -22,6 +23,7 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
 import bests.pi.facialrecognition.*;
 import bests.pi.facialrecognition.Domain.User;
 import bests.pi.facialrecognition.FinalVariables.ImutableVariables;
@@ -37,26 +39,27 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private Toolbar toolbarLogin;
     private ArrayList<EditText> arrayEditText = new ArrayList<>();
     private ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         initialize();
         this.buttonLogin.setOnClickListener(this);
+        setSupportProgressBarIndeterminateVisibility(true);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-
-        if(id == android.R.id.home)
-        {
+        if(item.getItemId() == android.R.id.home) {
             setIntent(new Intent(this, HomeScreen.class));
             finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onClick(View view) {
         boolean empty = false;
@@ -66,31 +69,37 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 this.arrayEditText.get(i).setError("Este campo não pode estar em branco!");
             }
         }
+
         if(!empty){
             if(ValidField.isValidEmail(this.editTextEmail)){
                 if(ValidField.isCorrectPassword(this.editTextPassword)){
+                    progressDialog = ProgressDialog.show(this, "Login", "Loading...");
                     RequestLogin request = new RequestLogin(Request.Method.POST,
                             ImutableVariables.URL_LOGIN
                                     + editTextEmail.getText().toString().trim()
-                                    + "/" + editTextPassword.getText().toString().trim(),
+                                    + "/"
+                                    + editTextPassword.getText().toString().trim(),
                             new Response.Listener<JSONObject>() {
                                 final Gson gson = new Gson();
                                 @SuppressLint("ShowToast")
+
                                 @Override
                                 public void onResponse(JSONObject jsonObject) {
                                     try {
                                         User user = gson.fromJson( jsonObject.toString(), User.class );
 
-                                        SharedPreferences sharedPreferences = getSharedPreferences(ImutableVariables.PREF_NAME,MODE_PRIVATE);
+                                        SharedPreferences sharedPreferences = getSharedPreferences(
+                                                ImutableVariables.PREF_NAME,MODE_PRIVATE
+                                        );
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("id", user.getId().toString());
                                         editor.putString("email",user.getEmail());
                                         editor.putString("password",user.getPassword());
                                         editor.apply();
-
                                         Toast.makeText(Login.this, "Log in with success", Toast.LENGTH_SHORT);
                                         Intent isConnected = new Intent(Login.this, IsConnected.class);
                                         isConnected.putExtra("userId", user.getId());
+                                        progressDialog.dismiss();
                                         startActivity(isConnected);
                                         finish();
 
@@ -102,22 +111,28 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            progressDialog.dismiss();
                             android.support.design.widget.Snackbar.make(editTextEmail,
                                     "Incorrect Email or Password", 3000).show();
                             editTextEmail.setError("");
                             editTextPassword.setError("");
                         }
-                    }) {
+                    })  {
                         @Override
                         public byte[] getBody() {
                             StringBuilder sb = new StringBuilder();
                             sb.append("{");
-                            sb.append("\"").append(ImutableVariables.EMAIL).append("\":\"")
-                                    .append(editTextEmail.getText().toString().trim()).append("\",");
-                            sb.append("\"").append(ImutableVariables.PASSWORD).append("\":\"")
-                                    .append(editTextPassword.getText().toString().trim()).append("\"");
+                            sb.append("\"")
+                                    .append(ImutableVariables.EMAIL)
+                                    .append("\":\"")
+                                    .append(editTextEmail.getText().toString().trim())
+                                    .append("\",");
+                            sb.append("\"")
+                                    .append(ImutableVariables.PASSWORD)
+                                    .append("\":\"")
+                                    .append(editTextPassword.getText().toString().trim())
+                                    .append("\"");
                             sb.append("}");
-
                             return sb.toString().getBytes();
                         }
                         @Override
@@ -130,6 +145,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             }
         }
     }
+
+
     private void initialize() {
         this.editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         this.editTextPassword = (EditText) findViewById(R.id.editTextPassword);

@@ -1,12 +1,9 @@
 package bests.pi.facialrecognition.FinalVariables;
 
-/**
- * Created by thomaz on 07/03/17.
- */
-
 public class ImutableVariables {
 
-    //public static final String IP = "172.23.20.225"; ip andrey
+    //ip andrey
+    //public static final String IP = "127.0.0.1";
     public static final String IP = "54.213.52.241";
     public static final String URL_LOGIN = "http://" + IP + ":8080/login/";
     public static final String URL_REGISTRATION = "http://" + IP + ":8080/save";

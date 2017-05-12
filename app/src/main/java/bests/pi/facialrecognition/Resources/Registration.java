@@ -2,6 +2,7 @@ package bests.pi.facialrecognition.Resources;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -32,6 +33,7 @@ import com.google.android.gms.vision.face.FaceDetector;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
 import bests.pi.facialrecognition.*;
 import bests.pi.facialrecognition.FinalVariables.ImutableVariables;
 import bests.pi.facialrecognition.Network.Controller;
@@ -49,24 +51,25 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
     private int cont;
     private String image;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
         inicialize();
         this.buttonRegistration.setOnClickListener(this);
         this.buttonCamera.setOnClickListener(this);
     }
+
     @Override
     public void onClick(final View view) {
         if(view == buttonRegistration) {
             if (!isEmpty()) {
                 if (ValidField.isValidEmail(this.editTextEmail)) {
-                    if (ValidField.isEqualsPasswords(this.editTextPassword,
-                            this.editTextConfirmPassword)) {
+                    if (ValidField.isEqualsPasswords(this.editTextPassword, this.editTextConfirmPassword)) {
                         if(cont > 0) {
+                            progressDialog = ProgressDialog.show(this, "Signin FacialRecognition", "Loading...");
                             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                                     ImutableVariables.URL_REGISTRATION,
                                     new Response.Listener<String>() {
@@ -75,9 +78,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                             AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
                                             builder.setTitle("Dados gravados com sucesso!");
                                             builder.setMessage(" Faça o login para continuar!");
-                                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
+                                                    progressDialog.dismiss();
                                                     startActivity(new Intent(Registration.this, Login.class));
                                                     finish();
                                                 }
@@ -85,33 +89,42 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                             builder.show();
                                         }
                                     }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    android.support.design.widget.Snackbar.make(view,
-                                            "Erro ao cadastrar, verifique sua conexão", 3000).show();
-                                    error.printStackTrace();
-                                }
-                            }) {
-                                @Override
-                                public byte[] getBody() {
-                                    StringBuilder sb = new StringBuilder();
-                                    sb.append("{");
-                                    sb.append("\"").append(ImutableVariables.EMAIL).append("\":\"")
-                                            .append(editTextEmail.getText().toString().trim()).append("\",");
-                                    sb.append("\"").append(ImutableVariables.PASSWORD).append("\":\"")
-                                            .append(editTextPassword.getText().toString().trim()).append("\",");
-                                    sb.append("\"").append(ImutableVariables.IMAGE).append("\":\"")
-                                            .append(image.trim()).append("\"");
-                                    sb.append("}");
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            progressDialog.dismiss();
+                                            android.support.design.widget.Snackbar.make(view,
+                                                    "Erro ao cadastrar, verifique sua conexão", 3000).show();
+                                            error.printStackTrace();
+                                        }
+                                    }) {
+                                        @Override
+                                        public byte[] getBody() {
+                                            StringBuilder sb = new StringBuilder();
+                                            sb.append("{");
+                                            sb.append("\"")
+                                                    .append(ImutableVariables.EMAIL)
+                                                    .append("\":\"")
+                                                    .append(editTextEmail.getText().toString().trim())
+                                                    .append("\",");
+                                            sb.append("\"")
+                                                    .append(ImutableVariables.PASSWORD)
+                                                    .append("\":\"")
+                                                    .append(editTextPassword.getText().toString().trim())
+                                                    .append("\",");
+                                            sb.append("\"").append(ImutableVariables.IMAGE)
+                                                    .append("\":\"")
+                                                    .append(image.trim())
+                                                    .append("\"");
+                                            sb.append("}");
 
-                                    return sb.toString().getBytes();
-                                }
+                                            return sb.toString().getBytes();
+                                        }
 
-                                @Override
-                                public String getBodyContentType() {
-                                    return "application/json; charset=utf-8";
-                                }
-                            };
+                                        @Override
+                                        public String getBodyContentType() {
+                                            return "application/json; charset=utf-8";
+                                        }
+                                    };
                             stringRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
                                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -131,33 +144,33 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
                  if (verifyPermission()){
                     dispatchTakePictureIntent();
-                }
+                 }
             }
             else {
                 dispatchTakePictureIntent();
             }
         }
     }
+
     private boolean verifyPermission() {
-        int permissionCheck = ContextCompat.checkSelfPermission(Registration.this, Manifest.permission.CAMERA);
-        if(permissionCheck == PackageManager.PERMISSION_GRANTED){
+        if(ContextCompat.checkSelfPermission(Registration.this, Manifest.permission.CAMERA) ==
+                PackageManager.PERMISSION_GRANTED){
             return true;
         }
         ActivityCompat.requestPermissions(Registration.this, new String[]{Manifest.permission.CAMERA}, 101);
         return verifyPermission();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-
-        if(id == android.R.id.home)
-        {
+        if(item.getItemId() == android.R.id.home) {
             setIntent(new Intent(this, HomeScreen.class));
             finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ImutableVariables.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -171,7 +184,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     .setMode(FaceDetector.FAST_MODE)
                     .build();
 
-            if (!detector.isOperational()) {
+            if (detector.isOperational()) {
                 assert imageBitmap != null;
                 Frame frame = new Frame.Builder().setBitmap(imageBitmap).build();
                 SparseArray<Face> numberFaces = detector.detect(frame);
@@ -193,6 +206,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -210,15 +224,16 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 this.arrayEditText.get(i).setError("Este campo não pode estar em branco!");
             }
         }
-
         return empty;
     }
+
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, ImutableVariables.REQUEST_IMAGE_CAPTURE);
         }
     }
+
     private void inicialize() {
         this.editTextEmail = (EditText) findViewById(R.id.editTextEmailRegistration);
         this.editTextPassword = (EditText) findViewById(R.id.editTextPasswordRegistration);

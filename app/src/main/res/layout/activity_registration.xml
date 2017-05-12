@@ -27,7 +27,8 @@
             android:paddingRight="15dp"
             android:gravity="center"
             android:orientation="vertical"
-            tools:ignore="ScrollViewSize">
+            tools:ignore="ScrollViewSize"
+            android:weightSum="1">
             <ImageView
                 android:id="@+id/imageRegistration"
                 android:layout_width="wrap_content"
@@ -87,6 +88,12 @@
                 android:layout_marginTop="5dp"
                 android:backgroundTint="@android:color/darker_gray"
                 tools:ignore="RtlHardcoded" />
+            <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:id="@+id/progressBar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:visibility="gone"/>
             <Button
                 android:id="@+id/buttonRegistration"
                 android:layout_width="match_parent"
@@ -96,7 +103,6 @@
                 android:text="@string/sign_in"
                 android:textColor="@android:color/white"
                 android:textSize="17sp"/>
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

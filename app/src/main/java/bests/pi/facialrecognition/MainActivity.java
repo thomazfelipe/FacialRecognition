@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import bests.pi.facialrecognition.Resources.HomeScreen;
 
+
 public class MainActivity extends AppCompatActivity implements Runnable{
 
     @Override
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         Handler handler = new Handler();
         handler.postDelayed((Runnable) this,4000);
     }
+
     @Override
     public void run(){
         startActivity(new Intent(this, HomeScreen.class));
