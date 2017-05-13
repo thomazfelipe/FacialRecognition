@@ -120,19 +120,27 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
                                 if (error instanceof TimeoutError){
                                     android.support.design.widget.Snackbar.make(view,
-                                            "Failed to login, Timeout", 3000).show();
+                                            getResources().getString(R.string.failed_login)
+                                            + ", " +
+                                            getResources().getString(R.string.timeout), 3000).show();
                                 }
                                 else if (error instanceof NetworkError){
                                     android.support.design.widget.Snackbar.make(view,
-                                            "Failed to login, Check your connection", 3000).show();
+                                            getResources().getString(R.string.failed_login)
+                                            + ", " +
+                                            getResources().getString(R.string.error_network), 3000).show();
                                 }
                                 else if (error instanceof AuthFailureError){
                                     android.support.design.widget.Snackbar.make(view,
-                                            "Failed to login, Authentication error", 3000).show();
+                                            getResources().getString(R.string.failed_login)
+                                            + ", " +
+                                            getResources().getString(R.string.error_auth), 3000).show();
                                 }
                                 else {
                                     android.support.design.widget.Snackbar.make(view,
-                                            "Failed to login, Incorrect E-mail or Password", 3000).show();
+                                            getResources().getString(R.string.failed_login)
+                                            + ", " +
+                                            getResources().getString(R.string.unique_email), 3000).show();
                                 }
 
                                 editTextEmail.setError("");

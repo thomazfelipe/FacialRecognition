@@ -3,7 +3,6 @@ package bests.pi.facialrecognition.Resources;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -16,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,20 +23,14 @@ import android.widget.EditText;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
 
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import bests.pi.facialrecognition.*;
@@ -85,8 +77,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                     ImutableVariables.URL_REGISTRATION,
                                     response -> {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
-                                        builder.setTitle("Data saved successfully!");
-                                        builder.setMessage("Login to continue!");
+                                        builder.setTitle(getResources().getString(R.string.data_saved));
+                                        builder.setMessage(getResources().getString(R.string.login_to_continue));
                                         builder.setPositiveButton("OK", (dialog, which) -> {
                                             progressDialog.dismiss();
                                             startActivity(new Intent(Registration.this, Login.class));
@@ -98,17 +90,23 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
                                         if (error instanceof TimeoutError){
                                             android.support.design.widget.Snackbar.make(view,
-                                                    "Failed to register, Timeout", 3000).show();
+                                                    getResources().getString(R.string.failed_register)
+                                                    + ", " +
+                                                    getResources().getString(R.string.timeout), 3000).show();
                                         }
 
                                         else if (error instanceof NetworkError){
                                             android.support.design.widget.Snackbar.make(view,
-                                                    "Failed to register, Check your connection", 3000).show();
+                                                    getResources().getString(R.string.failed_register)
+                                                    + ", " +
+                                                    getResources().getString(R.string.error_network), 3000).show();
                                         }
 
                                         else {
                                             android.support.design.widget.Snackbar.make(view,
-                                                    "Fialed to register, E-mail already used in the database", 3000).show();
+                                                    getResources().getString(R.string.failed_register)
+                                                    + ", " +
+                                                    getResources().getString(R.string.error_auth), 3000).show();
                                         }
 
                                         error.printStackTrace();
