@@ -79,45 +79,36 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                             progressDialog = ProgressDialog.show(this, "Recording", "Loading...");
                             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                                     ImutableVariables.URL_REGISTRATION,
-                                    new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
-                                            builder.setTitle("Data saved successfully!");
-                                            builder.setMessage("Login to continue!");
-                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    progressDialog.dismiss();
-                                                    startActivity(new Intent(Registration.this, Login.class));
-                                                    finish();
-                                                }
-                                            });
-                                            builder.show();
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
+                                    response -> {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
+                                        builder.setTitle("Data saved successfully!");
+                                        builder.setMessage("Login to continue!");
+                                        builder.setPositiveButton("OK", (dialog, which) -> {
                                             progressDialog.dismiss();
+                                            startActivity(new Intent(Registration.this, Login.class));
+                                            finish();
+                                        });
+                                        builder.show();
+                                    }, error -> {
+                                        progressDialog.dismiss();
 
-                                            if (error instanceof TimeoutError){
-                                                android.support.design.widget.Snackbar.make(view,
-                                                        "Failed to register, Timeout", 3000).show();
-                                            }
-
-                                            else if (error instanceof NetworkError){
-                                                android.support.design.widget.Snackbar.make(view,
-                                                        "Failed to register, Check your connection", 3000).show();
-                                            }
-
-                                            else {
-                                                android.support.design.widget.Snackbar.make(view,
-                                                        "Fialed to register, E-mail already used in the database", 3000).show();
-                                            }
-
-                                            error.printStackTrace();
-
+                                        if (error instanceof TimeoutError){
+                                            android.support.design.widget.Snackbar.make(view,
+                                                    "Failed to register, Timeout", 3000).show();
                                         }
+
+                                        else if (error instanceof NetworkError){
+                                            android.support.design.widget.Snackbar.make(view,
+                                                    "Failed to register, Check your connection", 3000).show();
+                                        }
+
+                                        else {
+                                            android.support.design.widget.Snackbar.make(view,
+                                                    "Fialed to register, E-mail already used in the database", 3000).show();
+                                        }
+
+                                        error.printStackTrace();
+
                                     }) {
                                         @Override
                                         public byte[] getBody() {
@@ -173,8 +164,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
-
-
 
     private boolean verifyPermission() {
         if(ContextCompat.checkSelfPermission(Registration.this, Manifest.permission.CAMERA) ==

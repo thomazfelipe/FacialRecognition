@@ -60,10 +60,7 @@ public class IsConnected extends AppCompatActivity implements View.OnClickListen
                         User user = gson.fromJson( jsonObject.toString(), User.class );
                         imageConnected.setImageDrawable(convertToDrawable(user));
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {}
-        }){ };
+                }, error -> {}){ };
         Controller.getInstance(IsConnected.this).addToRequestQuee(request);
     }
     private Drawable convertToDrawable(User user){

@@ -108,32 +108,29 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                         Log.i("Log", "JsonException: " + e.getMessage());
                                     }
                                 }
-                            }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            progressDialog.dismiss();
+                            }, error -> {
+                                progressDialog.dismiss();
 
-                            if (error instanceof TimeoutError){
-                                android.support.design.widget.Snackbar.make(view,
-                                        "Failed to login, Timeout", 3000).show();
-                            }
-                            else if (error instanceof NetworkError){
-                                android.support.design.widget.Snackbar.make(view,
-                                        "Failed to login, Check your connection", 3000).show();
-                            }
-                            else if (error instanceof AuthFailureError){
-                                android.support.design.widget.Snackbar.make(view,
-                                        "Failed to login, Authentication error", 3000).show();
-                            }
-                            else {
-                                android.support.design.widget.Snackbar.make(view,
-                                        "Failed to login, Incorrect E-mail or Password", 3000).show();
-                            }
+                                if (error instanceof TimeoutError){
+                                    android.support.design.widget.Snackbar.make(view,
+                                            "Failed to login, Timeout", 3000).show();
+                                }
+                                else if (error instanceof NetworkError){
+                                    android.support.design.widget.Snackbar.make(view,
+                                            "Failed to login, Check your connection", 3000).show();
+                                }
+                                else if (error instanceof AuthFailureError){
+                                    android.support.design.widget.Snackbar.make(view,
+                                            "Failed to login, Authentication error", 3000).show();
+                                }
+                                else {
+                                    android.support.design.widget.Snackbar.make(view,
+                                            "Failed to login, Incorrect E-mail or Password", 3000).show();
+                                }
 
-                            editTextEmail.setError("");
-                            editTextPassword.setError("");
-                        }
-                    })  {
+                                editTextEmail.setError("");
+                                editTextPassword.setError("");
+                            })  {
                         @Override
                         public byte[] getBody() {
                             StringBuilder sb = new StringBuilder();
