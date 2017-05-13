@@ -19,7 +19,6 @@ import java.util.Map;
 
 public class RequestLogin extends Request<JSONObject> {
     private Response.Listener<JSONObject> listener;
-    private Map<String, String> params;
 
     public RequestLogin(int method, String url,
                               Response.Listener<JSONObject> reponseListener, Response.ErrorListener errorListener) {
