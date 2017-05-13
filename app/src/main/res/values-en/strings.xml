@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Facial Recognition</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login">Sign in</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="you_connected">You\'re Connected!</string>
+    <string name="you_don_t_connected">You aren\'t Connected</string>
+    <string name="action_settings">Settings</string>
+    <string name="log_out">Log out</string>
+    <string name="home">Home</string>
+    <string name="next_step">Register</string>
+    <string name="settings">Settings</string>
+    <string name="empty_field">This field couldn\'t be empty!</string>
+    <string name="loading">Loading...</string>
+    <string name="logging_in">Logging in</string>
+    <string name="timeout">Timeout</string>
+    <string name="error_network">Check your connection</string>
+    <string name="error_auth">Aunthentication error</string>
+    <string name="invalid_email_psswd">E-mail or Password invalids</string>
+    <string name="login_successfully">Login successfully</string>
+    <string name="failed_login">Failed to login</string>
+    <string name="data_saved">Data saved successfully!</string>
+    <string name="login_to_continue">Login to Continue</string>
+    <string name="failed_register">Failed to register</string>
+    <string name="unique_email">E-mail already used in the database</string>
+    <string name="sorry">Sorry</string>
+    <string name="one_picture">We need one picture!</string>
+    <string name="no_one_face">We didn\'t detect any faces in the photo taken. Take it again!</string>
+    <string name="many_faces">We dectect more than one face in the photo taken. Take it again!</string>
+    <string name="recording">Recording</string>
+    <string name="language">Language:</string>
+
+</resources>

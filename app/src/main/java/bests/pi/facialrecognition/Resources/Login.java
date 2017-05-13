@@ -20,7 +20,6 @@ import com.android.volley.NetworkError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -67,13 +66,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         for(int i = 0; i < arrayEditText.size(); i++){
             if(this.arrayEditText.get(i).getText().toString().isEmpty()){
                 empty = true;
-                this.arrayEditText.get(i).setError("This field couldn't be empty");
+                this.arrayEditText.get(i).setError(getResources().getString(R.string.empty_field));
             }
         }
         if(!empty){
             if(ValidField.isValidEmail(this.editTextEmail)){
                 if(ValidField.isCorrectPassword(this.editTextPassword)){
-                    progressDialog = ProgressDialog.show(this, "Login", "Loading...");
+                    progressDialog = ProgressDialog.show(
+                            this,
+                            getResources().getString(R.string.logging_in),
+                            getResources().getString(R.string.empty_field)
+                    );
                     RequestLogin request = new RequestLogin(Request.Method.POST,
                             ImutableVariables.URL_LOGIN
                                     + editTextEmail.getText().toString().trim()
@@ -96,7 +99,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                         editor.putString("email",user.getEmail());
                                         editor.putString("password",user.getPassword());
                                         editor.apply();
-                                        Toast.makeText(Login.this, "Log in with success", Toast.LENGTH_SHORT);
+                                        Toast.makeText(
+                                                Login.this,
+                                                getResources().getString(R.string.login_successfully),
+                                                Toast.LENGTH_SHORT
+                                        );
                                         Intent isConnected = new Intent(Login.this, IsConnected.class);
                                         isConnected.putExtra("userId", user.getId());
                                         progressDialog.dismiss();
@@ -165,7 +172,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         this.layoutPassword = (TextInputLayout) findViewById(R.id.layoutPassword);
         this.buttonLogin = (Button) findViewById(R.id.buttonLogin);
         this.toolbarLogin = (Toolbar) findViewById(R.id.toolBarLogin);
-        this.toolbarLogin.setTitle("Login");
+        this.toolbarLogin.setTitle(getResources().getString(R.string.login));
         setSupportActionBar(this.toolbarLogin);
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

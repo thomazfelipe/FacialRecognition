@@ -76,7 +76,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 if (ValidField.isValidEmail(this.editTextEmail)) {
                     if (ValidField.isEqualsPasswords(this.editTextPassword, this.editTextConfirmPassword)) {
                         if(cont > 0) {
-                            progressDialog = ProgressDialog.show(this, "Recording", "Loading...");
+                            progressDialog = ProgressDialog.show(
+                                    this,
+                                    getResources().getString(R.string.recording),
+                                    getResources().getString(R.string.loading)
+                            );
                             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                                     ImutableVariables.URL_REGISTRATION,
                                     response -> {
@@ -145,8 +149,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                         }
                         else{
                             android.support.design.widget.Snackbar.make(view,
-                                    "Sorry, We need one picture!", 3000)
-                                    .show();
+                                    getResources().getString(R.string.sorry)
+                                    + ", " +
+                                    getResources().getString(R.string.one_picture),
+                                    3000).show();
                         }
                     }
                 }
@@ -204,11 +210,15 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 detector.release();
                 if (numberFaces.size() < 1) {
                     android.support.design.widget.Snackbar.make(buttonCamera,
-                            "Sorry, We didn't detect any faces in the photo taken. Take it again",
+                            getResources().getString(R.string.sorry)
+                            + ", " +
+                            getResources().getString(R.string.no_one_face),
                             3000).show();
                 } else if (numberFaces.size() > 1) {
                     android.support.design.widget.Snackbar.make(buttonCamera,
-                            "Sorry, We dectect more than one face in the photo taken. Take it again",
+                            getResources().getString(R.string.sorry)
+                            + ", " +
+                            getResources().getString(R.string.many_faces),
                             3000).show();
                 } else {
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -234,7 +244,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i < arrayEditText.size(); i++) {
             if (this.arrayEditText.get(i).getText().toString().isEmpty()) {
                 empty = true;
-                this.arrayEditText.get(i).setError("This field couldn't be empty!");
+                this.arrayEditText.get(i).setError(getResources().getString(R.string.empty_field));
             }
         }
         return empty;
@@ -256,7 +266,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         this.layoutConfirmPassword = (TextInputLayout) findViewById(R.id.layoutConfirmPasswordRegistration);
         this.buttonRegistration = (Button) findViewById(R.id.buttonRegistration);
         this.toolbarRegistration = (Toolbar) findViewById(R.id.toolBarRegistration);
-        this.toolbarRegistration.setTitle("Sign up");
+        this.toolbarRegistration.setTitle(getResources().getString(R.string.sign_up));
         this.buttonCamera = (Button) findViewById(R.id.buttonCamera);
         this.cont = 0;
         setSupportActionBar(this.toolbarRegistration);
