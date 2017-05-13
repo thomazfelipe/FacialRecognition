@@ -28,8 +28,8 @@ import bests.pi.facialrecognition.*;
 
 public class HomeScreen extends AppCompatActivity implements View.OnClickListener{
 
-    private Button buttonCreatePassword, buttonLogin, buttonLanguage;
-    private boolean lock;
+    private Button buttonCreatePassword, buttonLogin, buttonLanguage, buttonTheme;
+    private boolean lock, lockTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,9 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         initialize();
         this.buttonCreatePassword.setOnClickListener(this);
         this.buttonLogin.setOnClickListener(this);
+        this.buttonTheme.setOnClickListener((event)->setLocale(!lockTheme?"pt":"en"));
         buttonLanguage.setOnClickListener((event)->setLocale(!lock?"pt":"en"));
+        lockTheme = getIntent().getBooleanExtra("lockTheme", true);
         lock = getIntent().getBooleanExtra("lock", true);
         buttonLanguage.setBackground(getResources().getDrawable(!lock ? R.drawable.bra : R.drawable.usa));
     }
@@ -55,6 +57,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         buttonCreatePassword = (Button) findViewById(R.id.buttonRegistrar);
         buttonLogin = (Button) findViewById(R.id.buttonDoLogin);
         buttonLanguage = (Button) findViewById(R.id.buttonLanguage);
+        buttonTheme = (Button) findViewById(R.id.buttonTheme);
     }
 
     public void setLocale(String lang) {
