@@ -52,7 +52,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         this.buttonLogin.setOnClickListener(this);
         setSupportProgressBarIndeterminateVisibility(true);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == android.R.id.home) {
@@ -62,7 +61,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     public void onClick(final View view) {
         boolean empty = false;
@@ -72,7 +70,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 this.arrayEditText.get(i).setError("This field couldn't be empty");
             }
         }
-
         if(!empty){
             if(ValidField.isValidEmail(this.editTextEmail)){
                 if(ValidField.isCorrectPassword(this.editTextPassword)){
@@ -120,17 +117,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                 android.support.design.widget.Snackbar.make(view,
                                         "Failed to login, Timeout", 3000).show();
                             }
-
                             else if (error instanceof NetworkError){
                                 android.support.design.widget.Snackbar.make(view,
                                         "Failed to login, Check your connection", 3000).show();
                             }
-
                             else if (error instanceof AuthFailureError){
                                 android.support.design.widget.Snackbar.make(view,
                                         "Failed to login, Authentication error", 3000).show();
                             }
-
                             else {
                                 android.support.design.widget.Snackbar.make(view,
                                         "Failed to login, Incorrect E-mail or Password", 3000).show();
@@ -167,8 +161,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             }
         }
     }
-
-
     private void initialize() {
         this.editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         this.editTextPassword = (EditText) findViewById(R.id.editTextPassword);
