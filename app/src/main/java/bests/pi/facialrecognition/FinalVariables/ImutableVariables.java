@@ -1,5 +1,7 @@
 package bests.pi.facialrecognition.FinalVariables;
 
+import android.graphics.Color;
+
 public class ImutableVariables {
 
     //ip andrey
@@ -20,5 +22,9 @@ public class ImutableVariables {
     public static final String IMAGE = "image";
     public static final String PREF_NAME = "LoginActivitySave";
     public static final int REQUEST_IMAGE_CAPTURE = 1;
+    public static final String LANGUAGE_PT = "pt";
+    public static final String LANGUAGE_EN = "en";
+    public static final int THEME_DARK = 0;
+    public static final int THEME_LIGHT = Color.WHITE;
 
 }

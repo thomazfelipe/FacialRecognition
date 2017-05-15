@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="2"
+    android:layout_gravity="bottom"
     android:background="@color/colorPrimary"
     tools:context="bests.pi.facialrecognition.Resources.HomeScreen">
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:gravity="center"
-        android:layout_weight="1.99999"
+        android:layout_weight="2"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,17 +24,18 @@
             android:orientation="horizontal"
             android:weightSum="2">
             <TextView
+                android:id="@+id/textTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center|right"
                 android:layout_weight="2"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="10dp"
                 android:textSize="20dp"
-                android:textColor="#FFF"
+                android:textColor="@color/colorAccent"
                 android:text="@string/theme"/>
             <Button
                 android:id="@+id/buttonTheme"
-                android:background="@drawable/circle1"
+                android:background="@drawable/theme1"
                 android:layout_width="30dp"
                 android:layout_gravity="right"
                 android:layout_height="30dp"
@@ -44,17 +45,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="7dp"
             android:orientation="horizontal"
             android:weightSum="2">
             <TextView
+                android:id="@+id/textLanguage"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center|right"
                 android:layout_weight="2"
                 android:layout_marginRight="15dp"
                 android:textSize="20dp"
-                android:textColor="#FFF"
+                android:textColor="@color/colorAccent"
                 android:text="@string/language"/>
             <Button
                 android:id="@+id/buttonLanguage"
@@ -63,9 +65,14 @@
                 android:layout_gravity="right"
                 android:layout_height="30dp"
                 android:layout_weight="0.5"/>
-
         </LinearLayout>
-
+        <View
+            android:layout_width="140dp"
+            android:layout_gravity="right"
+            android:layout_height="1dp"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="7dp">
+        </View>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,29 +91,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_marginTop="60dp"
         android:gravity="bottom"
-        android:layout_weight="0.001"
         android:orientation="horizontal"
         android:weightSum="2">
         <Button
             android:id="@+id/buttonDoLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
             android:layout_weight="1"
             android:background="@android:color/holo_green_dark"
             android:text="@string/login"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:textSize="17sp" />
         <Button
             android:id="@+id/buttonRegistrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:background="@color/accent"
             android:text="@string/sign_up"
+            android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:textSize="17sp" />
     </LinearLayout>
