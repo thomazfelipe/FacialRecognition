@@ -33,4 +33,7 @@
     <string name="many_faces">Nós detectamos mais de uma face na foto tirada. Tire Novamente!</string>
     <string name="language">Idioma:</string>
     <string name="theme">Tema:</string>
+    <string name="match_passwords">As senhas não correspondem!</string>
+    <string name="valid_email">Informe um e-mail válido</string>
+    <string name="password_length">A senha precisa conter no mínimo 4 caracteres!</string>
 </resources>

@@ -33,4 +33,7 @@
     <string name="recording">Recording</string>
     <string name="language">Language:</string>
     <string name="theme">Theme:</string>
+    <string name="match_passwords">Passwords don\'t match!</string>
+    <string name="valid_email">Enter a valid email address</string>
+    <string name="password_length">Password must contain at least 4 characters!</string>
 </resources>

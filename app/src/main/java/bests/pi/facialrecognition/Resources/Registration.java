@@ -157,6 +157,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                     3000).show();
                         }
                     }
+                    else {
+                        this.editTextConfirmPassword.setError(getResources().getString(R.string.match_passwords));
+                    }
+                }
+                else {
+                    this.editTextEmail.setError(getResources().getString(R.string.valid_email));
                 }
             }
         }

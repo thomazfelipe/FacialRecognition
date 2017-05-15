@@ -144,7 +144,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                     android.support.design.widget.Snackbar.make(view,
                                             getResources().getString(R.string.failed_login)
                                             + ", " +
-                                            getResources().getString(R.string.unique_email), 3000).show();
+                                            getResources().getString(R.string.invalid_email_psswd), 3000).show();
                                 }
                                 editTextEmail.setError("");
                                 editTextPassword.setError("");
@@ -173,6 +173,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     };
                     Controller.getInstance(Login.this).addToRequestQuee(request);
                 }
+                else {
+                    this.editTextPassword.setError(getResources().getString(R.string.password_length));
+                }
+            }
+            else {
+                this.editTextEmail.setError(getResources().getString(R.string.valid_email));
             }
         }
     }

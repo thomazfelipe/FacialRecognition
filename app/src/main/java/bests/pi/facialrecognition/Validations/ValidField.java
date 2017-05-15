@@ -4,15 +4,15 @@ import android.widget.EditText;
 
 import java.util.regex.Pattern;
 
-/**
- * Created by thomaz on 02/03/17.
- */
 
 public class ValidField {
+
+
     public static boolean isEqualsPasswords(EditText editTextPassword, EditText editTextConfirmPassword) {
+
         if(!editTextPassword.getText().toString().equals(editTextConfirmPassword.getText().toString()))
         {
-            editTextConfirmPassword.setError("As senhas não correspondem!");
+            //editTextConfirmPassword.setError("As senhas não correspondem!");
             return false;
         }
         else{
@@ -27,13 +27,13 @@ public class ValidField {
         if(pattern.matcher(editTextEmail.getText().toString()).matches()){
             return true;
         } else{
-            editTextEmail.setError("Digite um e-mail válido!");
+            //editTextEmail.setError("Digite um e-mail válido!");
             return false;
         }
     }
     public static boolean isCorrectPassword(EditText editText){
         if(editText.getText().toString().length() < 4){
-            editText.setError("A senha precisa conter no mínimo 4 caracteres!");
+            //editText.setError("A senha precisa conter no mínimo 4 caracteres!");
             return false;
         }else{
             return true;

@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="@string/you_connected"
             android:textColor="#FFFFFF"
-            android:textSize="40sp"/>
+            android:textSize="36sp"/>
         <Button
             android:id="@+id/buttonLogout"
             android:layout_width="match_parent"
