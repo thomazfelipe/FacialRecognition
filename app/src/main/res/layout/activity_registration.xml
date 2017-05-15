@@ -16,93 +16,102 @@
         android:elevation="3dp"
         android:theme="@style/ToolBarStyle"
         tools:ignore="UnusedAttribute" />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <LinearLayout
-            android:id="@+id/linearLayoutRegistration"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            tools:ignore="ScrollViewSize"
-            android:weightSum="1">
-            <ImageView
-                android:id="@+id/imageRegistration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_fsociety"
-                tools:ignore="ContentDescription" />
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/layoutEmailRegistration"
+            android:weightSum="2"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/linearLayoutRegistration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:theme="@style/EditText">
-                <EditText
-                    android:id="@+id/editTextEmailRegistration"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:hint="@string/hint_email"
-                    android:theme="@style/EditText"
-                    android:textColor="#FFFFFF"
-                    android:inputType="textEmailAddress" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/layoutPasswordRegistration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/EditText">
-                <EditText
-                    android:id="@+id/editTextPasswordRegistration"
+                android:layout_weight="1"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:ignore="ScrollViewSize">
+                <ImageView
+                    android:id="@+id/imageRegistration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_fsociety"
+                    tools:ignore="ContentDescription" />
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/layoutEmailRegistration"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_password"
-                    android:theme="@style/EditText"
-                    android:textColor="#FFFFFF"
-                    android:inputType="textPassword" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/layoutConfirmPasswordRegistration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/EditText">
-                <EditText
-                    android:id="@+id/editTextConfirmPasswordRegistration"
+                    android:layout_marginTop="20dp"
+                    android:theme="@style/EditText">
+                    <EditText
+                        android:id="@+id/editTextEmailRegistration"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:hint="@string/hint_email"
+                        android:theme="@style/EditText"
+                        android:textColor="@color/colorAccent"
+                        android:inputType="textEmailAddress" />
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/layoutPasswordRegistration"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/confirm_password"
-                    android:theme="@style/EditText"
-                    android:textColor="#FFFFFF"
-                    android:inputType="textPassword" />
-            </android.support.design.widget.TextInputLayout>
-            <Button
-                android:id="@+id/buttonCamera"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="right"
-                android:background="@drawable/ic_camera"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="5dp"
-                android:backgroundTint="@android:color/darker_gray"
-                tools:ignore="RtlHardcoded" />
-            <ProgressBar
-                style="?android:attr/progressBarStyle"
-                android:id="@+id/progressBar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:visibility="gone"/>
+                    android:theme="@style/EditText">
+                    <EditText
+                        android:id="@+id/editTextPasswordRegistration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_password"
+                        android:theme="@style/EditText"
+                        android:textColor="@color/colorAccent"
+                        android:inputType="textPassword" />
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/layoutConfirmPasswordRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/EditText">
+                    <EditText
+                        android:id="@+id/editTextConfirmPasswordRegistration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/confirm_password"
+                        android:theme="@style/EditText"
+                        android:textColor="@color/colorAccent"
+                        android:inputType="textPassword" />
+                </android.support.design.widget.TextInputLayout>
+                <Button
+                    android:id="@+id/buttonCamera"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/ic_camera"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="@android:color/darker_gray"
+                    tools:ignore="RtlHardcoded" />
+                <ProgressBar
+                    style="?android:attr/progressBarStyle"
+                    android:id="@+id/progressBar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:visibility="gone"/>
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:layout_weight="1"
+            android:orientation="horizontal">
             <Button
                 android:id="@+id/buttonRegistration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/button_shape"
+                android:background="@color/colorAccent"
                 android:text="@string/sign_in"
                 android:textColor="@android:color/white"
                 android:textSize="17sp"/>
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 </LinearLayout>

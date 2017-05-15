@@ -18,67 +18,78 @@
         android:elevation="3dp"
         app:theme="@style/ToolBarStyle"
         tools:ignore="UnusedAttribute" />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <LinearLayout
-            android:id="@+id/linearLayoutLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:layout_height="match_parent"
+            android:weightSum="2"
             android:gravity="center"
             android:orientation="vertical">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_fsociety"
-                tools:ignore="ContentDescription" />
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/layoutEmail"
+            <LinearLayout
+                android:id="@+id/linearLayoutLogin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:theme="@style/EditText">
-                <EditText
-                    android:id="@+id/editTextEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:hint="@string/hint_email"
-                    android:theme="@style/EditText"
-                    android:textColor="#FFFFFF"
-                    android:inputType="textEmailAddress" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/layoutPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/EditText">
-                <EditText
-                    android:id="@+id/editTextPassword"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_fsociety"
+                    tools:ignore="ContentDescription" />
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/layoutEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_password"
-                    android:theme="@style/EditText"
-                    android:textColor="#FFFFFF"
-                    android:inputType="textPassword" />
-            </android.support.design.widget.TextInputLayout>
-            <Button
-                android:id="@+id/buttonLogin"
+                    android:layout_marginTop="40dp"
+                    android:theme="@style/EditText">
+                    <EditText
+                        android:id="@+id/editTextEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:hint="@string/hint_email"
+                        android:theme="@style/EditText"
+                        android:textColor="@color/colorAccent"
+                        android:inputType="textEmailAddress" />
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/layoutPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/EditText">
+                    <EditText
+                        android:id="@+id/editTextPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_password"
+                        android:theme="@style/EditText"
+                        android:textColor="@color/colorAccent"
+                        android:inputType="textPassword" />
+                </android.support.design.widget.TextInputLayout>
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/button_shape"
-                android:text="@string/login"
-                android:textColor="@android:color/white"
-                android:textSize="17sp"/>
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <Button
+                    android:id="@+id/buttonLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="@string/login"
+                    android:textColor="@android:color/white"
+                    android:textSize="17sp"/>
+            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>
