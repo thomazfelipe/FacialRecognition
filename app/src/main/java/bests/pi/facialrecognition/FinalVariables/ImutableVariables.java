@@ -7,10 +7,12 @@ public class ImutableVariables {
     //ip andrey
     public static final String IP = "172.23.20.225";
 
+    //ip thomaz
+    //public static final String IP = "172.23.20.225";
+
     //ip aws
     //public static final String IP = "54.213.52.241";
 
-    //public static final String IP = "169.254.231.115";
 
     public static final String URL_LOGIN = "http://" + IP + ":8080/login/";
     public static final String URL_REGISTRATION = "http://" + IP + ":8080/save";

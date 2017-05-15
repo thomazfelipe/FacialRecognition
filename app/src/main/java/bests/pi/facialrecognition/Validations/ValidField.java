@@ -4,12 +4,9 @@ import android.widget.EditText;
 
 import java.util.regex.Pattern;
 
-
 public class ValidField {
 
-
     public static boolean isEqualsPasswords(EditText editTextPassword, EditText editTextConfirmPassword) {
-
         if(!editTextPassword.getText().toString().equals(editTextConfirmPassword.getText().toString()))
         {
             //editTextConfirmPassword.setError("As senhas não correspondem!");

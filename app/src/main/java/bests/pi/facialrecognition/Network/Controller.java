@@ -6,10 +6,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-/**
- * Created by thomaz on 08/03/17.
- */
-
 public class Controller {
 
     protected static Controller Instance;

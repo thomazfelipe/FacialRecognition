@@ -1,9 +1,5 @@
 package bests.pi.facialrecognition.Domain;
 
-/**
- * Created by thomaz on 07/03/17.
- */
-
 public class User {
 
     private Integer id;

@@ -10,12 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
-
-
-/**
- * Created by thomaz on 07/03/17.
- */
 
 public class RequestLogin extends Request<JSONObject> {
     private Response.Listener<JSONObject> listener;

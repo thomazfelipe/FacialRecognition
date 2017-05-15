@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import bests.pi.facialrecognition.Resources.HomeScreen;
 
-
 public class MainActivity extends AppCompatActivity implements Runnable{
 
     @Override
