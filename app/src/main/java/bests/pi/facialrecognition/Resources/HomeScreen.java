@@ -80,6 +80,5 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         buttonLogin = (Button) findViewById(R.id.buttonDoLogin);
         buttonLanguage = (Button) findViewById(R.id.buttonLanguage);
         buttonTheme = (Button) findViewById(R.id.buttonTheme);
-        //ll = (LinearLayout) findViewById(R.id.activity_home_screen);
     }
 }
