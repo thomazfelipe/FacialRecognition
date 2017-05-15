@@ -32,5 +32,5 @@
     <string name="many_faces">We dectect more than one face in the photo taken. Take it again!</string>
     <string name="recording">Recording</string>
     <string name="language">Language:</string>
-
+    <string name="theme">Theme:</string>
 </resources>

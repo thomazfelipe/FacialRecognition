@@ -3,7 +3,7 @@ package bests.pi.facialrecognition.FinalVariables;
 public class ImutableVariables {
 
     //ip andrey
-    public static final String IP = "172.23.20.225";
+    public static final String IP = "192.168.1.7";
 
     //ip aws
     //public static final String IP = "54.213.52.241";

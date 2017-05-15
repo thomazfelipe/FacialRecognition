@@ -8,43 +8,50 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import java.util.Locale;
 
 import bests.pi.facialrecognition.*;
+import bests.pi.facialrecognition.General.UtilSingleton;
 
 public class HomeScreen extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonCreatePassword, buttonLogin, buttonLanguage, buttonTheme;
-    private boolean lock, lockTheme;
+    private boolean lockLanguage;
+    private boolean lockTheme;
+    private static final String LANGUAGE_PT = "pt";
+    private static final String LANGUAGE_EN = "en";
+    private static final int THEME_DARK = 0;
+    private static final int THEME_LIGHT = 1;
+    private LinearLayout ll;
+    private UtilSingleton util;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        util = UtilSingleton.getInstance();
         initialize();
-        this.buttonCreatePassword.setOnClickListener(this);
-        this.buttonLogin.setOnClickListener(this);
-        this.buttonTheme.setOnClickListener((event)->setLocale(!lockTheme?"pt":"en"));
-        buttonLanguage.setOnClickListener((event)->setLocale(!lock?"pt":"en"));
-        lockTheme = getIntent().getBooleanExtra("lockTheme", true);
-        lock = getIntent().getBooleanExtra("lock", true);
-        buttonLanguage.setBackground(getResources().getDrawable(!lock ? R.drawable.bra : R.drawable.usa));
+        buttonCreatePassword.setOnClickListener(this);
+        buttonLogin.setOnClickListener(this);
+        buttonLanguage.setOnClickListener((event)->setLocale(!lockLanguage ? LANGUAGE_PT : LANGUAGE_EN));
+        lockLanguage = getIntent().getBooleanExtra("lockLanguage", true);
+        buttonLanguage.setBackground(getResources().getDrawable(!lockLanguage ? R.drawable.bra : R.drawable.usa));
+        buttonTheme.setOnClickListener((event)->controlLock(!lockTheme ? THEME_DARK : THEME_LIGHT));
+
     }
     @Override
     public void onClick(View view) {
-        startActivity(
-                (view.equals(this.buttonCreatePassword)) ?
-                        (new Intent(HomeScreen.this, Registration.class)) :
-                        (new Intent(HomeScreen.this, Login.class))
-        );
-    }
 
-    private void initialize() {
-        buttonCreatePassword = (Button) findViewById(R.id.buttonRegistrar);
-        buttonLogin = (Button) findViewById(R.id.buttonDoLogin);
-        buttonLanguage = (Button) findViewById(R.id.buttonLanguage);
-        buttonTheme = (Button) findViewById(R.id.buttonTheme);
+
+        Intent intent = new Intent(
+                (view.equals(this.buttonCreatePassword)) ?
+                (new Intent(HomeScreen.this, Registration.class)) :
+                (new Intent(HomeScreen.this, Login.class))
+        );
+        intent.putExtra("lockTheme", !lockTheme);
+        startActivity(intent);
     }
 
     public void setLocale(String lang) {
@@ -56,7 +63,23 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         res.updateConfiguration(conf, dm);
         Intent intent = new Intent(this, HomeScreen.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("lock", !lock);
+        intent.putExtra("lockLanguage", !lockLanguage);
         startActivity(intent);
+    }
+
+    //  TODO fix background them when locale is changed
+    public void controlLock(int theme){
+        lockTheme = ((theme == 0 ) ? true : false);
+        util.setLockTheme(lockTheme);
+        util.setBackground(ll);
+        buttonTheme.setBackground(getResources().getDrawable(!lockTheme ? R.drawable.circle1 : R.drawable.circle2));
+    }
+
+    private void initialize() {
+        buttonCreatePassword = (Button) findViewById(R.id.buttonRegistrar);
+        buttonLogin = (Button) findViewById(R.id.buttonDoLogin);
+        buttonLanguage = (Button) findViewById(R.id.buttonLanguage);
+        buttonTheme = (Button) findViewById(R.id.buttonTheme);
+        ll = (LinearLayout) findViewById(R.id.activity_home_screen);
     }
 }

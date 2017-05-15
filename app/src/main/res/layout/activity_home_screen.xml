@@ -9,6 +9,7 @@
     android:background="@color/colorPrimary"
     tools:context="bests.pi.facialrecognition.Resources.HomeScreen">
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="15dp"
@@ -30,10 +31,10 @@
                 android:layout_marginRight="15dp"
                 android:textSize="20dp"
                 android:textColor="#FFF"
-                android:text="@string/language"/>
+                android:text="@string/theme"/>
             <Button
                 android:id="@+id/buttonTheme"
-                android:background="@drawable/bra"
+                android:background="@drawable/circle1"
                 android:layout_width="30dp"
                 android:layout_gravity="right"
                 android:layout_height="30dp"

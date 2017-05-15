@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -19,6 +20,7 @@ import org.json.JSONObject;
 
 import bests.pi.facialrecognition.Domain.User;
 import bests.pi.facialrecognition.FinalVariables.ImutableVariables;
+import bests.pi.facialrecognition.General.UtilSingleton;
 import bests.pi.facialrecognition.Network.Controller;
 import bests.pi.facialrecognition.Network.RequestLogin;
 import bests.pi.facialrecognition.R;
@@ -27,16 +29,17 @@ public class IsConnected extends AppCompatActivity implements View.OnClickListen
 
     private Button buttonLogout;
     private ImageView imageConnected;
-    private Integer userId = null;
+    private Integer userId = -1;
+    private LinearLayout ll;
+    private UtilSingleton util;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userId = getIntent().getIntExtra("userId", -1);
         setContentView(R.layout.activity_is_connected);
-
+        util = UtilSingleton.getInstance();
         initialize();
-
         setPicture();
         this.buttonLogout.setOnClickListener(this);
     }
@@ -72,5 +75,7 @@ public class IsConnected extends AppCompatActivity implements View.OnClickListen
     public void initialize(){
         this.buttonLogout = (Button) findViewById(R.id.buttonLogout);
         this.imageConnected = (ImageView) findViewById(R.id.imageConnected);
+        ll = (LinearLayout) findViewById(R.id.activity_home_screen);
+        util.setBackground(ll);
     }
 }

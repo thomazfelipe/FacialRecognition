@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import bests.pi.facialrecognition.*;
 import bests.pi.facialrecognition.Domain.User;
 import bests.pi.facialrecognition.FinalVariables.ImutableVariables;
+import bests.pi.facialrecognition.General.UtilSingleton;
 import bests.pi.facialrecognition.Network.Controller;
 import bests.pi.facialrecognition.Network.RequestLogin;
 import bests.pi.facialrecognition.Validations.ValidField;
@@ -42,11 +44,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private ArrayList<EditText> arrayEditText = new ArrayList<>();
     private ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
     private ProgressDialog progressDialog;
+    private LinearLayout ll;
+    private UtilSingleton util;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        util = UtilSingleton.getInstance();
         initialize();
         this.buttonLogin.setOnClickListener(this);
         setSupportProgressBarIndeterminateVisibility(true);
@@ -75,7 +80,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     progressDialog = ProgressDialog.show(
                             this,
                             getResources().getString(R.string.logging_in),
-                            getResources().getString(R.string.empty_field)
+                            getResources().getString(R.string.loading)
                     );
                     RequestLogin request = new RequestLogin(Request.Method.POST,
                             ImutableVariables.URL_LOGIN
@@ -142,7 +147,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                             + ", " +
                                             getResources().getString(R.string.unique_email), 3000).show();
                                 }
-
                                 editTextEmail.setError("");
                                 editTextPassword.setError("");
                             })  {
@@ -189,5 +193,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         this.arrayEditText.add(this.editTextPassword);
         this.arrayLayout.add(this.layoutEmail);
         this.arrayLayout.add(this.layoutPassword);
+        ll = (LinearLayout) findViewById(R.id.activity_login);
+        util.setBackground(ll);
     }
 }

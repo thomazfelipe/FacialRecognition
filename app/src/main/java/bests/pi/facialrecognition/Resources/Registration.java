@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 
 import bests.pi.facialrecognition.*;
 import bests.pi.facialrecognition.FinalVariables.ImutableVariables;
+import bests.pi.facialrecognition.General.UtilSingleton;
 import bests.pi.facialrecognition.Network.Controller;
 import bests.pi.facialrecognition.Validations.ValidField;
 
@@ -51,11 +53,14 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private int cont;
     private String image;
     private ProgressDialog progressDialog;
+    private LinearLayout ll;
+    private UtilSingleton util;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        util = UtilSingleton.getInstance();
         inicialize();
         this.buttonRegistration.setOnClickListener(this);
         this.buttonCamera.setOnClickListener(this);
@@ -106,7 +111,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                             android.support.design.widget.Snackbar.make(view,
                                                     getResources().getString(R.string.failed_register)
                                                     + ", " +
-                                                    getResources().getString(R.string.error_auth), 3000).show();
+                                                    getResources().getString(R.string.unique_email), 3000).show();
                                         }
 
                                         error.printStackTrace();
@@ -277,6 +282,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         this.arrayLayout.add(this.layoutEmail);
         this.arrayLayout.add(this.layoutPassword);
         this.arrayLayout.add(this.layoutConfirmPassword);
+        ll = (LinearLayout) findViewById(R.id.activity_login);
+        util.setBackground(ll);
     }
 
 }
