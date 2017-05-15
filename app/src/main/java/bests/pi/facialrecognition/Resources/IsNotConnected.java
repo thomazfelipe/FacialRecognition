@@ -13,7 +13,6 @@ import bests.pi.facialrecognition.R;
 public class IsNotConnected extends AppCompatActivity implements View.OnClickListener{
 
     protected Button buttonHome;
-    private LinearLayout ll;
     private UtilSingleton util;
 
     @Override
@@ -23,8 +22,7 @@ public class IsNotConnected extends AppCompatActivity implements View.OnClickLis
         util = UtilSingleton.getInstance();
         this.buttonHome = (Button) findViewById(R.id.buttonHome);
         this.buttonHome.setOnClickListener(this);
-        ll = (LinearLayout) findViewById(R.id.activity_home_screen);
-        util.setBackground(ll);
+        util.setBackground((LinearLayout) findViewById(R.id.activity_home_screen));
     }
     @Override
     public void onClick(View view) {

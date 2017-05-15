@@ -5,7 +5,7 @@ import android.graphics.Color;
 public class ImutableVariables {
 
     //ip andrey
-    public static final String IP = "192.168.1.7";
+    public static final String IP = "172.23.20.225";
 
     //ip aws
     //public static final String IP = "54.213.52.241";

@@ -53,7 +53,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private int cont;
     private String image;
     private ProgressDialog progressDialog;
-    private LinearLayout ll;
     private UtilSingleton util;
 
     @Override
@@ -282,8 +281,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         this.arrayLayout.add(this.layoutEmail);
         this.arrayLayout.add(this.layoutPassword);
         this.arrayLayout.add(this.layoutConfirmPassword);
-        ll = (LinearLayout) findViewById(R.id.activity_login);
-        util.setBackground(ll);
+        util.setBackground((LinearLayout) findViewById(R.id.activity_login));
     }
 
 }

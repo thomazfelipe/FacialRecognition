@@ -30,7 +30,6 @@ public class IsConnected extends AppCompatActivity implements View.OnClickListen
     private Button buttonLogout;
     private ImageView imageConnected;
     private Integer userId = -1;
-    private LinearLayout ll;
     private UtilSingleton util;
 
     @Override
@@ -75,7 +74,6 @@ public class IsConnected extends AppCompatActivity implements View.OnClickListen
     public void initialize(){
         this.buttonLogout = (Button) findViewById(R.id.buttonLogout);
         this.imageConnected = (ImageView) findViewById(R.id.imageConnected);
-        ll = (LinearLayout) findViewById(R.id.activity_home_screen);
-        util.setBackground(ll);
+        util.setBackground((LinearLayout) findViewById(R.id.activity_home_screen));
     }
 }

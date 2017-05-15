@@ -44,7 +44,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private ArrayList<EditText> arrayEditText = new ArrayList<>();
     private ArrayList<TextInputLayout> arrayLayout = new ArrayList<>();
     private ProgressDialog progressDialog;
-    private LinearLayout ll;
     private UtilSingleton util;
 
     @Override
@@ -193,7 +192,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         this.arrayEditText.add(this.editTextPassword);
         this.arrayLayout.add(this.layoutEmail);
         this.arrayLayout.add(this.layoutPassword);
-        ll = (LinearLayout) findViewById(R.id.activity_login);
-        util.setBackground(ll);
+        util.setBackground((LinearLayout) findViewById(R.id.activity_login));
     }
 }

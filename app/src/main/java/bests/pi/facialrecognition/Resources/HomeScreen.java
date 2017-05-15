@@ -3,14 +3,12 @@ package bests.pi.facialrecognition.Resources;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.Locale;
 
@@ -23,7 +21,6 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     private Button buttonCreatePassword, buttonLogin, buttonLanguage, buttonTheme;
     private boolean lockLanguage;
     private boolean lockTheme;
-    private LinearLayout ll;
     private UtilSingleton util;
 
     @Override
@@ -34,11 +31,18 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         initialize();
         buttonCreatePassword.setOnClickListener(this);
         buttonLogin.setOnClickListener(this);
-        buttonLanguage.setOnClickListener((event)->setLocale(!lockLanguage ? ImutableVariables.LANGUAGE_PT : ImutableVariables.LANGUAGE_EN));
+        buttonLanguage.setOnClickListener((event)->setLocale(
+                !lockLanguage ? ImutableVariables.LANGUAGE_PT : ImutableVariables.LANGUAGE_EN)
+        );
         lockLanguage = getIntent().getBooleanExtra("lockLanguage", true);
-        buttonLanguage.setBackground(getResources().getDrawable(!lockLanguage ? R.drawable.bra : R.drawable.usa));
-        buttonTheme.setOnClickListener((event)->controlLock(!lockTheme ? ImutableVariables.THEME_DARK : ImutableVariables.THEME_LIGHT));
+        buttonLanguage.setBackground(getResources().getDrawable(
+                !lockLanguage ? R.drawable.bra : R.drawable.usa)
+        );
+        buttonTheme.setOnClickListener((event)->controlLock(
+                !lockTheme ? ImutableVariables.THEME_DARK : ImutableVariables.THEME_LIGHT)
+        );
     }
+
     @Override
     public void onClick(View view) {
 
@@ -64,11 +68,11 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         startActivity(intent);
     }
 
-    //  TODO fix background them when locale is changed
+    //  TODO fix background theme when locale is changed
     public void controlLock(int theme){
         lockTheme = ((theme == 0));
         util.setLockTheme(lockTheme);
-        util.setBackground(ll);
+        util.setBackground((LinearLayout) findViewById(R.id.activity_home_screen));
     }
 
     private void initialize() {
@@ -76,6 +80,6 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         buttonLogin = (Button) findViewById(R.id.buttonDoLogin);
         buttonLanguage = (Button) findViewById(R.id.buttonLanguage);
         buttonTheme = (Button) findViewById(R.id.buttonTheme);
-        ll = (LinearLayout) findViewById(R.id.activity_home_screen);
+        //ll = (LinearLayout) findViewById(R.id.activity_home_screen);
     }
 }
