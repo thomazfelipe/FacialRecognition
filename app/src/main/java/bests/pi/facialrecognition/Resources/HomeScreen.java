@@ -51,7 +51,6 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
                 (new Intent(HomeScreen.this, Registration.class)) :
                 (new Intent(HomeScreen.this, Login.class))
         );
-        intent.putExtra("lockTheme", !lockTheme);
         startActivity(intent);
     }
 
@@ -68,7 +67,6 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         startActivity(intent);
     }
 
-    //  TODO fix background theme when locale is changed
     public void controlLock(int theme){
         lockTheme = ((theme == 0));
         util.setLockTheme(lockTheme);
@@ -80,5 +78,6 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         buttonLogin = (Button) findViewById(R.id.buttonDoLogin);
         buttonLanguage = (Button) findViewById(R.id.buttonLanguage);
         buttonTheme = (Button) findViewById(R.id.buttonTheme);
+        util.setBackground((LinearLayout) findViewById(R.id.activity_home_screen));
     }
 }

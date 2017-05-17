@@ -17,4 +17,5 @@ android {
 }
 
 dependencies {
+compile 'org.bytedeco.javacpp-presets:opencv:3.2.0-1.3'
 }

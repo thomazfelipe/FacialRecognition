@@ -6,6 +6,8 @@ package org.opencv.objdetect;
 
 import java.lang.String;
 import java.util.ArrayList;
+
+import org.bytedeco.javacpp.opencv_core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfDouble;
 import org.opencv.core.MatOfInt;
@@ -153,7 +155,7 @@ public class CascadeClassifier {
     }
 
     //javadoc: CascadeClassifier::detectMultiScale(image, objects)
-    public  void detectMultiScale(Mat image, MatOfRect objects)
+    public  void detectMultiScale(Mat image, MatOfRect objects, double scaleFactor, int minNeighbors, int flags, opencv_core.Size size, opencv_core.Size size1)
     {
         Mat objects_mat = objects;
         detectMultiScale_1(nativeObj, image.nativeObj, objects_mat.nativeObj);

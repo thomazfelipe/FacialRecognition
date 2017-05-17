@@ -3,11 +3,11 @@ package bests.pi.facialrecognition.Resources;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -31,14 +31,35 @@ import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
 
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.Utils;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
+
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import bests.pi.facialrecognition.*;
+import bests.pi.facialrecognition.ArtificialIntelligence.CameraOpenCV;
+import bests.pi.facialrecognition.ArtificialIntelligence.PersonRecognizer;
+import bests.pi.facialrecognition.ArtificialIntelligence.Trainee;
 import bests.pi.facialrecognition.FinalVariables.ImutableVariables;
 import bests.pi.facialrecognition.General.UtilSingleton;
 import bests.pi.facialrecognition.Network.Controller;
 import bests.pi.facialrecognition.Validations.ValidField;
+
+import static android.provider.Contacts.PresenceColumns.IDLE;
 
 public class Registration extends AppCompatActivity implements View.OnClickListener{
 
@@ -54,6 +75,68 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private String image;
     private ProgressDialog progressDialog;
     private UtilSingleton util;
+    private Mat mRgba;
+    private Mat mGray;
+    private CascadeClassifier mJavaDetector;
+    private static final int frontCam =1;
+    private int mChooseCamera = 2;
+    private int faceState=IDLE;
+    private static final Scalar FACE_RECT_COLOR     = new Scalar(0, 255, 0, 255);
+    public static final int        JAVA_DETECTOR       = 0;
+    public static final int TRAINING= 0;
+    public static final int SEARCHING= 1;
+    private int mDetectorType = JAVA_DETECTOR;
+    private float mRelativeFaceSize   = 0.2f;
+    private int mAbsoluteFaceSize   = 0;
+    private Bitmap mBitmap;
+    private File mCascadeFile;
+    private CameraOpenCV mOpenCvCameraView;
+    static final long MAXIMG = 10;
+    private PersonRecognizer trainee;
+    private int countImages = 0;
+    private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
+        @Override
+        public void onManagerConnected(int status) {
+            switch (status) {
+                case LoaderCallbackInterface.SUCCESS:
+                {
+                    trainee.load();
+
+                    try {
+                        InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
+                        File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
+                        mCascadeFile = new File(cascadeDir, "lbpcascade.xml");
+                        FileOutputStream os = new FileOutputStream(mCascadeFile);
+
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        while ((bytesRead = is.read(buffer)) != -1) {
+                            os.write(buffer, 0, bytesRead);
+                        }
+                        is.close();
+                        os.close();
+
+                        mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
+
+                        //mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
+
+                        cascadeDir.delete();
+
+                    } catch (IOException ignored) {
+                    }
+
+                    mOpenCvCameraView.enableView();
+
+                } break;
+                default:
+                {
+                    super.onManagerConnected(status);
+                } break;
+
+
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +147,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         this.buttonRegistration.setOnClickListener(this);
         this.buttonCamera.setOnClickListener(this);
     }
-
     @Override
     public void onClick(final View view) {
         if(view == buttonRegistration) {
@@ -259,10 +341,13 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, ImutableVariables.REQUEST_IMAGE_CAPTURE);
-        }
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            startActivityForResult(takePictureIntent, ImutableVariables.REQUEST_IMAGE_CAPTURE);
+//        }
+          //mOpenCvCameraView.setCamFront();
+        startActivity(new Intent(Registration.this, CameraCV.class));
+
     }
 
     private void inicialize() {
@@ -289,5 +374,4 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         this.arrayLayout.add(this.layoutConfirmPassword);
         util.setBackground((LinearLayout) findViewById(R.id.activity_login));
     }
-
 }
